@@ -1,0 +1,1102 @@
+lets start working on adding a button of all the super admin routes on the super admin dashboard. this is the result of php artisan route:list "macbook@Q-Tech-MacBook-Pro-II-ABuja fnpsgusau % php artisan route:list
+  GET|HEAD  / ................................................................... routes/web.php:20
+  GET|HEAD  academic-sessions ........... academic-sessions.index › AcademicSessionController@index
+  POST      academic-sessions ........... academic-sessions.store › AcademicSessionController@store
+  PUT       academic-sessions/{academicSession} academic-sessions.update › AcademicSessionControll…
+  DELETE    academic-sessions/{academicSession} academic-sessions.destroy › AcademicSessionControl…
+  GET|HEAD  batch-pupil-progression batch-pupil-progression.index › BatchPupilProgressionControlle…
+  POST      batch-pupil-progression batch-pupil-progression.store › BatchPupilProgressionControlle…
+  GET|HEAD  batch-pupil-progression/pupils batch-pupil-progression.pupils › BatchPupilProgressionC…
+  GET|HEAD  parent/change-pin .................... parent.pin.edit › ParentPortalController@editPin
+  POST      parent/change-pin ................ parent.pin.update › ParentPortalController@updatePin
+  GET|HEAD  parent/dashboard .................. parent.dashboard › ParentPortalController@dashboard
+  GET|HEAD  parent/login .......................... parent.login › ParentPortalController@showLogin
+  POST      parent/login ....................... parent.login.submit › ParentPortalController@login
+  POST      parent/logout ........................... parent.logout › ParentPortalController@logout
+  GET|HEAD  parent/results/pdf ..... parent.results.pdf › ParentPortalController@downloadResultsPdf
+  GET|HEAD  pupil-progression .......... pupil-progression.index › PupilProgressionController@index
+  POST      pupil-progression .......... pupil-progression.store › PupilProgressionController@store
+  GET|HEAD  staff-management ............. staff-management.index › StaffManagementController@index
+  POST      staff-management ............. staff-management.store › StaffManagementController@store
+  GET|HEAD  staff-management/class-term-publication staff-management.class-term-publication › Clas…
+  POST      staff-management/class-term-publication/publish staff-management.class-term-publicatio…
+  POST      staff-management/class-term-publication/unpublish staff-management.class-term-publicat…
+  GET|HEAD  staff-management/fee-statuses staff-management.fee-statuses › StudentFeeStatusControll…
+  POST      staff-management/fee-statuses/{enrollment} staff-management.fee-statuses.update › Stud…
+  GET|HEAD  staff-management/publication-audits staff-management.publication-audits › ResultPublic…
+  GET|HEAD  staff-management/pupil-pin-resets staff-management.pupil-pin-resets › StudentPinResetC…
+  POST      staff-management/pupil-pin-resets/{student} staff-management.pupil-pin-resets.reset › …
+  GET|HEAD  staff-management/pupil-progression/audits pupil-progression.audits › PupilProgressionA…
+  POST      staff-management/results/{result}/publish results.publish › ResultPublicationControlle…
+  POST      staff-management/results/{result}/unpublish results.unpublish › ResultPublicationContr…
+  GET|HEAD  staff-management/subjects .................... subjects.index › SubjectController@index
+  POST      staff-management/subjects .................... subjects.store › SubjectController@store
+  PUT       staff-management/subjects/{subject} ........ subjects.update › SubjectController@update
+  PUT       staff-management/{user}/assignments staff-management.assignments.update › StaffManagem…
+  POST      staff-management/{user}/reset-password staff-management.password.reset › StaffManageme…
+  GET|HEAD  staff/change-password .............. staff.password.edit › StaffPasswordController@edit
+  POST      staff/change-password .......... staff.password.update › StaffPasswordController@update
+  GET|HEAD  staff/dashboard ....................... staff.dashboard › StaffAuthController@dashboard
+  GET|HEAD  staff/login ............................... staff.login › StaffAuthController@showLogin
+  POST      staff/login ............................ staff.login.submit › StaffAuthController@login
+  POST      staff/logout ................................ staff.logout › StaffAuthController@logout
+  GET|HEAD  staff/results ....................... results.classes › ResultViewingController@classes
+  GET|HEAD  staff/results/classes/{section} ... results.students › ResultViewingController@students
+  GET|HEAD  staff/results/entry ........................ results.entry › ScoreEntryController@index
+  POST      staff/results/entry ........................ results.store › ScoreEntryController@store
+  GET|HEAD  staff/results/pupils/{student} results.student › ResultViewingController@studentResults
+  GET|HEAD  staff/results/pupils/{student}/pdf results.student.pdf › ResultViewingController@downl…
+  GET|HEAD  storage/{path} storage.local › vendor/laravel/framework/src/Illuminate/Filesystem/File…
+  PUT       storage/{path} storage.local.upload › vendor/laravel/framework/src/Illuminate/Filesyst…
+  GET|HEAD  students ..................................... students.index › StudentController@index
+  POST      students ..................................... students.store › StudentController@store
+  GET|HEAD  up vendor/laravel/framework/src/Illuminate/Foundation/Configuration/ApplicationBuilder…
+                                                                                Showing [52] routes"dont forget to add publication (/staff/results) and batch publication (/staff-management/class-term-publication), we also have progression (/pupil-progression) and batch progression (/batch-pupil-progression)
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parent Portal | FNPS Gusau</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #263346;
+            background: #f7f9f8;
+        }
+
+        h1, h2 { color: #173c2b; }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        button, select {
+            padding: 10px 12px;
+            margin-top: 8px;
+        }
+
+        button { cursor: pointer; }
+
+        .message {
+            padding: 12px;
+            border-radius: 6px;
+            background: #e8f5e9;
+        }
+
+        .error {
+            padding: 12px;
+            border-radius: 6px;
+            background: #ffebee;
+        }
+
+        .result-form {
+            border-top: 1px solid #ddd;
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+        .school-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .school-logo {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .school-logo-right {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .school-header-center {
+            flex: 1;
+        }
+
+        .school-header-center h1 {
+            color: #173c2b;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .school-header-center p {
+            margin: 8px 0 0;
+            color: #263346;
+        }
+
+        label { display: block; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    
+    <div class="school-header">
+
+        <img
+            src="{{ asset('images/school-logo.jpeg') }}"
+            alt="Fatima Nursery and Primary School Logo"
+            class="school-logo"
+        >
+
+        <div class="school-header-center">
+            <h1>Fatima Nursery and Primary School</h1>
+
+            <p>Gusau, Zamfara State</p>
+        </div>
+
+        <img
+            src="{{ asset('images/second-school-logo.jpeg') }}"
+            alt="School Second Logo"
+            class="school-logo-right"
+        >
+
+    </div>
+
+    @if (session('success'))
+        <p class="message">{{ session('success') }}</p>
+    @endif
+
+    @if (session('error'))
+        <p class="error">{{ session('error') }}</p>
+    @endif
+
+    <div class="panel">
+        <h2>Pupil Information</h2>
+
+        <p><strong>Name:</strong>
+            {{ $student->first_name }}
+            {{ $student->middle_name }}
+            {{ $student->last_name }}
+        </p>
+
+        <p><strong>Admission Number:</strong>
+            {{ $student->admission_number }}
+        </p>
+
+        <p><strong>Status:</strong>
+            {{ ucfirst($student->status) }}
+        </p>
+    </div>
+
+    <div class="panel">
+        <h2>Enrolment History</h2>
+
+        @forelse ($student->enrollments as $enrolment)
+            <div style="border-bottom: 1px solid #ddd; padding: 12px 0;">
+                <p>
+                    <strong>
+                        {{ $enrolment->academicSession->name }}
+                    </strong>
+                    —
+                    {{ $enrolment->section->classLevel->name }}
+                    {{ $enrolment->section->name }}
+                </p>
+
+                <form
+                    class="result-form"
+                    method="GET"
+                    action="{{ route('parent.results.pdf') }}"
+                >
+                    <input
+                        type="hidden"
+                        name="session_id"
+                        value="{{ $enrolment->academic_session_id }}"
+                    >
+
+                    <label for="term-{{ $enrolment->id }}">
+                        Select Term
+                    </label>
+
+                    <select
+                        id="term-{{ $enrolment->id }}"
+                        name="term"
+                        required
+                    >
+                        <option value="First Term">First Term</option>
+                        <option value="Second Term">Second Term</option>
+                        <option value="Third Term">Third Term</option>
+                    </select>
+
+                    <br>
+
+                    <button type="submit">
+                        Download My Results PDF
+                    </button>
+                </form>
+            </div>
+        @empty
+            <p>No enrolment records are available.</p>
+        @endforelse
+    </div>
+
+    <div class="panel">
+        <h2>Results</h2>
+        <p>
+            Select an academic session and term to download your
+            available published results. Results that have not been
+            published will not be downloadable.
+        </p>
+    </div>
+
+    <form method="POST" action="{{ route('parent.logout') }}">
+        @csrf
+        <button type="submit">Sign Out</button>
+    </form>
+</body>
+</html>
+
+
+
+00000000000000000000000000000000000000000000
+
+
+PARENT-login
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parent Login | FNPS Gusau</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 420px; margin: 60px auto; padding: 20px; color: #263346; }
+        h1 { color: #173c2b; }
+        label { display: block; margin-top: 16px; font-weight: bold; }
+        input { width: 100%; box-sizing: border-box; padding: 12px; margin-top: 6px; }
+        button { margin-top: 20px; padding: 12px; width: 100%; cursor: pointer; }
+        .error { color: #a21d1d; }
+    </style>
+</head>
+<body>
+    <h1><center>Fatima Nursery and Primary School,</center></h1><br><center>Gusau, Zamfara State.</center>
+    <h2>Parent / Pupil Portal</h2>
+    <p>Sign in with the admission number and your four-digit PIN.</p>
+
+    @if ($errors->any())
+        <div class="error">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('parent.login.submit') }}">
+        @csrf
+
+        <label for="login_id">Admission Number</label>
+        <input id="login_id" name="login_id" value="{{ old('login_id') }}"
+               maxlength="100" autocomplete="username" required>
+
+        <label for="pin">Four-digit PIN</label>
+        <input id="pin" name="pin" type="password" inputmode="numeric"
+               pattern="[0-9]{4}" minlength="4" maxlength="4"
+               autocomplete="current-password" required>
+
+        <button type="submit">Sign In</button>
+    </form>
+</body>
+</html>
+
+00000000000000000000000000000000000000
+STAFF Login<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Staff Login | FNPS Gusau</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 420px; margin: 50px auto; padding: 20px; }
+        label { display: block; margin-top: 16px; }
+        input { box-sizing: border-box; width: 100%; padding: 11px; margin-top: 6px; }
+        button { margin-top: 20px; padding: 12px; width: 100%; cursor: pointer; }
+        .error { color: #b00020; }
+        .success { color: #176b36; }
+    </style>
+</head>
+<body>
+    <h1>FNPS Gusau</h1>
+    <h2>Staff Login</h2>
+
+    @if (session('success'))
+        <p class="success">{{ session('success') }}</p>
+    @endif
+
+    @if ($errors->any())
+        <div class="error">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('staff.login.submit') }}">
+        @csrf
+
+        <label for="email">Staff email</label>
+        <input
+            id="email"
+            type="email"
+            name="email"
+            value="{{ old('email') }}"
+            autocomplete="username"
+            required
+            autofocus
+        >
+
+        <label for="password">Password</label>
+        <input
+            id="password"
+            type="password"
+            name="password"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type="submit">Sign in</button>
+    </form>
+</body>
+</html>
+
+
+
+
+00000000000000000000000000000
+STAFF SCORE ENTRY
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Score Entry | FNPS Gusau</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 16px;
+            color: #222;
+        }
+        .panel {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 20px 0;
+        }
+        label { display: block; margin: 12px 0; }
+        select, input, button {
+            padding: 8px;
+            margin-top: 4px;
+        }
+        select { max-width: 100%; }
+        .success { color: #176b36; }
+        .error { color: #b00020; }
+        .table-wrap { overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 9px;
+            text-align: left;
+        }
+        input[type="number"] { width: 75px; }
+    </style>
+</head>
+<body>
+    <h1>Fatima Nursery and Primary School</h1>
+    <p>Gusau, Zamfara State</p>
+    <p>Score Entry</p>
+    <p><a href="{{ route('staff.dashboard') }}">Back to dashboard</a></p>
+
+    @if (session('success'))
+        <p class="success">{{ session('success') }}</p>
+    @endif
+
+    @if ($errors->any())
+        <div class="error">
+            <strong>Please correct these errors:</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="panel">
+        <h2>Select Class, Session and Term</h2>
+
+        <form method="GET" action="{{ route('results.entry') }}">
+            <label>
+                Academic term
+                <select name="term" required>
+                    @foreach ($terms as $term)
+                        <option
+                            value="{{ $term }}"
+                            @selected($selectedTerm === $term)
+                        >
+                            {{ $term }}
+                        </option>
+                    @endforeach
+                </select>
+            </label>
+
+            <label>
+                Academic session
+                <select name="session_id" required>
+                    <option value="">Select session</option>
+                    @foreach ($sessions as $session)
+                        <option
+                            value="{{ $session->id }}"
+                            @selected(
+                                (string) request('session_id', $currentSession?->id)
+                                === (string) $session->id
+                            )
+                        >
+                            {{ $session->name }}
+                            @if ($session->is_current) — Current @endif
+                        </option>
+                    @endforeach
+                </select>
+            </label>
+
+            <label>
+                Section
+                <select name="section_id" required>
+                    <option value="">Select section</option>
+                    @foreach ($sections as $section)
+                        <option
+                            value="{{ $section->id }}"
+                            @selected(
+                                (string) request('section_id')
+                                === (string) $section->id
+                            )
+                        >
+                            {{ $section->classLevel->name }} — {{ $section->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </label>
+
+            <button type="submit">Load Class</button>
+        </form>
+    </div>
+
+    @if ($selectedSection && $selectedSession)
+        <div class="panel">
+            <h2>
+                {{ $selectedSection->classLevel->name }}
+                — {{ $selectedSection->name }}
+            </h2>
+
+            <p>Academic session: {{ $selectedSession->name }}</p>
+            <p>Selected term: <strong>{{ $selectedTerm }}</strong></p>
+
+            <form method="GET" action="{{ route('results.entry') }}">
+                <input
+                    type="hidden"
+                    name="section_id"
+                    value="{{ $selectedSection->id }}"
+                >
+                <input
+                    type="hidden"
+                    name="session_id"
+                    value="{{ $selectedSession->id }}"
+                >
+                <input
+                    type="hidden"
+                    name="term"
+                    value="{{ $selectedTerm }}"
+                >
+
+                <label>
+                    Subject
+                    <select name="subject_id" required>
+                        <option value="">Select subject</option>
+                        @foreach ($subjects as $subject)
+                            <option
+                                value="{{ $subject->id }}"
+                                @selected(
+                                    (string) $selectedSubjectId
+                                    === (string) $subject->id
+                                )
+                            >
+                                {{ $subject->name }} ({{ $subject->code }})
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
+
+                <button type="submit">Load Pupils</button>
+            </form>
+
+            @if ($subjects->isEmpty())
+                <p>No active subjects have been assigned to this class level.</p>
+            @endif
+        </div>
+    @endif
+
+    @if (
+        $selectedSection &&
+        $selectedSession &&
+        $selectedSubjectId &&
+        $subjects->contains('id', $selectedSubjectId)
+    )
+        <div class="panel">
+            <h2>Enter Scores — {{ $selectedTerm }}</h2>
+
+            <p>
+                First Assessment: 0–20 |
+                Second Assessment: 0–20 |
+                Exam: 0–60
+            </p>
+
+            @if ($enrollments->isEmpty())
+                <p>No currently enrolled pupils were found for this section and session.</p>
+            @else
+                <form method="POST" action="{{ route('results.store') }}">
+                    @csrf
+
+                    <input
+                        type="hidden"
+                        name="section_id"
+                        value="{{ $selectedSection->id }}"
+                    >
+                    <input
+                        type="hidden"
+                        name="session_id"
+                        value="{{ $selectedSession->id }}"
+                    >
+                    <input
+                        type="hidden"
+                        name="subject_id"
+                        value="{{ $selectedSubjectId }}"
+                    >
+                    <input
+                        type="hidden"
+                        name="term"
+                        value="{{ $selectedTerm }}"
+                    >
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pupil</th>
+                                    <th>Admission No.</th>
+                                    <th>First /20</th>
+                                    <th>Second /20</th>
+                                    <th>Exam /60</th>
+                                    <th>Total /100</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($enrollments as $enrollment)
+                                    @php
+                                        $result = $enrollment->result ?? null;
+                                        $first = $result?->first_assessment;
+                                        $second = $result?->second_assessment;
+                                        $exam = $result?->exam;
+
+                                        $total = $first !== null
+                                            && $second !== null
+                                            && $exam !== null
+                                                ? (float) $first
+                                                    + (float) $second
+                                                    + (float) $exam
+                                                : null;
+                                    @endphp
+
+                                    <tr>
+                                        <td>
+                                            {{ $enrollment->student->last_name }},
+                                            {{ $enrollment->student->first_name }}
+                                            {{ $enrollment->student->middle_name }}
+                                        </td>
+
+                                        <td>
+                                            {{ $enrollment->student->admission_number }}
+                                        </td>
+
+                                        <td>
+                                            <input
+                                                type="number"
+                                                name="scores[{{ $enrollment->id }}][first_assessment]"
+                                                min="0"
+                                                max="20"
+                                                step="0.01"
+                                                value="{{ old('scores.'.$enrollment->id.'.first_assessment', $first) }}"
+                                            >
+                                        </td>
+
+                                        <td>
+                                            <input
+                                                type="number"
+                                                name="scores[{{ $enrollment->id }}][second_assessment]"
+                                                min="0"
+                                                max="20"
+                                                step="0.01"
+                                                value="{{ old('scores.'.$enrollment->id.'.second_assessment', $second) }}"
+                                            >
+                                        </td>
+
+                                        <td>
+                                            <input
+                                                type="number"
+                                                name="scores[{{ $enrollment->id }}][exam]"
+                                                min="0"
+                                                max="60"
+                                                step="0.01"
+                                                value="{{ old('scores.'.$enrollment->id.'.exam', $exam) }}"
+                                            >
+                                        </td>
+
+                                        <td>
+                                            {{ $total !== null
+                                                ? number_format($total, 2)
+                                                : '—' }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Leave a pupil's row blank if you are not entering
+                        scores for that pupil yet.
+                    </p>
+
+                    <button type="submit">Save Scores</button>
+                </form>
+            @endif
+        </div>
+    @endif
+</body>
+</html>
+
+
+0000000000000000000000000
+CLASSESS AND RESULTS
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Classes and Results | FNPS Gusau</title>
+</head>
+<body>
+    <h1>Classes and Results</h1>
+
+    <p><a href="{{ route('staff.dashboard') }}">Back to dashboard</a></p>
+
+    <h2>Select Academic Session</h2>
+
+    <form method="GET" action="{{ route('results.classes') }}">
+        <label for="term">Academic term</label>
+        <select name="term" id="term" required>
+            @foreach ($terms as $term)
+                <option
+                    value="{{ $term }}"
+                    @selected(request('term', 'First Term') === $term)
+                >
+                    {{ $term }}
+                </option>
+            @endforeach
+        </select>
+        <label for="session_id">Academic session</label>
+
+        <select name="session_id" id="session_id" required>
+            <option value="">Select session</option>
+
+            @foreach ($sessions as $session)
+                <option
+                    value="{{ $session->id }}"
+                    @selected(
+                        (string) request('session_id', $currentSession?->id)
+                        === (string) $session->id
+                    )
+                >
+                    {{ $session->name }}
+                    @if ($session->is_current) — Current @endif
+                </option>
+            @endforeach
+        </select>
+
+        <button type="submit">Choose Session</button>
+    </form>
+
+    <h2>Available Classes and Sections</h2>
+
+    @forelse ($sections as $section)
+        <div style="border:1px solid #ddd; padding:15px; margin:12px 0;">
+            <h3>{{ $section->classLevel->name }} — {{ $section->name }}</h3>
+
+            @if (request('session_id') && $sessions->contains('id', (int) request('session_id')))
+                <a href="{{ route('results.students', [
+                    'section' => $section->id,
+                    'session_id' => request('session_id'),
+                    'term' => request('term', 'First Term'),
+                ]) }}">
+                    View Pupils
+                </a>
+            @elseif ($currentSession)
+                <a href="{{ route('results.students', [
+                    'section' => $section->id,
+                    'session_id' => $currentSession->id,
+                    'term' => request('term', 'First Term'),
+                ]) }}">
+                    View Pupils in Current Session
+                </a>
+            @else
+                <p>Please create and select an academic session first.</p>
+            @endif
+        </div>
+    @empty
+        <p>No sections are available to your account.</p>
+    @endforelse
+</body>
+</html>
+
+000000000000000000000000000
+CLASS PUPIL list
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Class Pupil List | FNPS Gusau</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 18px;
+            color: #222;
+            background: #f7f8fa;
+        }
+
+        .header, .panel {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e1e5e9;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e1e5e9;
+            text-align: left;
+        }
+
+        th {
+            background: #edf2f7;
+        }
+
+        tbody tr:hover {
+            background: #f5f8fc;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 5px;
+            background: #174a7e;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .muted {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Fatima Nursery and Primary School</h1>
+        <p>Gusau, Zamfara State</p>
+        <p>Class Pupil List</p>
+
+        <p>
+            <strong>Class:</strong>
+            {{ $section->classLevel->name }} — {{ $section->name }}
+        </p>
+
+        <p>
+            <strong>Academic session:</strong> {{ $session->name }}
+        </p>
+        <p>
+            <strong>Academic term:</strong> {{ $term }}
+        </p>
+
+        <p>
+            <a href="{{ route('results.classes', [
+                'session_id' => $session->id,
+                'term' => $term,
+            ]) }}">
+                &larr; Back to Classes
+            </a>
+            |
+            <a href="{{ route('staff.dashboard') }}">Staff Dashboard</a>
+        </p>
+    </div>
+
+    <div class="panel">
+        <h2>Enrolled Pupils ({{ $enrollments->count() }})</h2>
+
+        @if ($enrollments->isEmpty())
+            <p class="muted">
+                No pupils are enrolled in this section for this academic session.
+            </p>
+        @else
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Admission Number</th>
+                            <th>Pupil's Full Name</th>
+                            <th>Gender</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($enrollments as $enrollment)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+
+                                <td>
+                                    {{ $enrollment->student->admission_number }}
+                                </td>
+
+                                <td>
+                                    {{ $enrollment->student->last_name }},
+                                    {{ $enrollment->student->first_name }}
+                                    {{ $enrollment->student->middle_name }}
+                                </td>
+
+                                <td>
+                                    {{ $enrollment->student->gender
+                                        ? ucfirst($enrollment->student->gender)
+                                        : '—' }}
+                                </td>
+
+                                <td>
+                                    <a
+                                        class="button"
+                                        href="{{ route('results.student', [
+                                            'student' => $enrollment->student->id,
+                                            'session_id' => $session->id,
+                                            'term' => $term,
+                                        ]) }}"
+                                    >
+                                        View Results
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </div>
+</body>
+</html>
+
+00000000000000000000000
+PUPIL RESULT
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pupil Results | FNPS Gusau</title>
+</head>
+<body>
+    @if (session('success'))
+        <p style="color: green;">
+            {{ session('success') }}
+        </p>
+    @endif
+    <h1>FNPS Gusau — Pupil Results</h1>
+
+    <h2>
+        {{ $student->first_name }}
+        {{ $student->middle_name }}
+        {{ $student->last_name }}
+    </h2>
+
+    <p>Admission number: {{ $student->admission_number }}</p>
+    <p>Academic session: {{ $session->name }}</p>
+    <p>Academic term: <strong>{{ $term }}</strong></p>
+    <p>
+        Class:
+        {{ $enrollment->section->classLevel->name }}
+        — {{ $enrollment->section->name }}
+    </p>
+    <form method="GET" action="{{ route('results.student', [
+        'student' => $student->id,
+    ]) }}">
+        <input
+            type="hidden"
+            name="session_id"
+            value="{{ $session->id }}"
+        >
+
+        <label for="term">View another term:</label>
+
+        <select name="term" id="term" required>
+            @foreach ($terms as $availableTerm)
+                <option
+                    value="{{ $availableTerm }}"
+                    @selected($term === $availableTerm)
+                >
+                    {{ $availableTerm }}
+                </option>
+            @endforeach
+        </select>
+
+        <button type="submit">View Term</button>
+    </form>
+
+    <p>
+        <a href="{{ route('results.students', [
+            'section' => $enrollment->section_id,
+            'session_id' => $session->id,
+            'term' => $term,
+        ]) }}">
+            Back to Pupil List
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ route('results.student.pdf', [
+            'student' => $student->id,
+            'session_id' => $session->id,
+            'term' => $term,
+        ]) }}">
+            Download Results as PDF
+        </a>
+    </p>
+
+    <h2>Subject Results</h2>
+
+    @if ($results->isEmpty())
+        <p>No results have been entered for this pupil in this session.</p>
+    @else
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>First Assessment /20</th>
+                    <th>Second Assessment /20</th>
+                    <th>Exam /60</th>
+                    <th>Total /100</th>
+                    <th>Status</th>
+                    <th>Publication</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($results as $result)
+                    @php
+                        $complete = $result->first_assessment !== null
+                            && $result->second_assessment !== null
+                            && $result->exam !== null;
+
+                        $total = $complete
+                            ? (float) $result->first_assessment
+                                + (float) $result->second_assessment
+                                + (float) $result->exam
+                            : null;
+                    @endphp
+
+                    <tr>
+                        <td>{{ $result->subject->name }}</td>
+                        <td>{{ $result->first_assessment ?? '—' }}</td>
+                        <td>{{ $result->second_assessment ?? '—' }}</td>
+                        <td>{{ $result->exam ?? '—' }}</td>
+                        <td>{{ $total !== null ? number_format($total, 2) : 'Incomplete' }}</td>
+                        <td>{{ ucfirst($result->status) }}</td>
+                        <td>
+                            @if ($result->published_at)
+                                <strong>Published</strong>
+
+                                @if (auth()->user()->role === 'super_admin')
+                                    <form
+                                        method="POST"
+                                        action="{{ route('results.unpublish', $result) }}"
+                                        onsubmit="return confirm('Unpublish this result? The pupil will no longer be able to download it.');"
+                                    >
+                                        @csrf
+                                        <button type="submit">Unpublish</button>
+                                    </form>
+                                @endif
+                            @else
+                                <span>Not published</span>
+
+                                @if (auth()->user()->role === 'super_admin')
+                                    <form
+                                        method="POST"
+                                        action="{{ route('results.publish', $result) }}"
+                                        onsubmit="return confirm('Publish this completed result for the pupil?');"
+                                    >
+                                        @csrf
+                                        <button
+                                            type="submit"
+                                            @disabled(
+                                                $result->status !== 'submitted'
+                                                || $result->first_assessment === null
+                                                || $result->second_assessment === null
+                                                || $result->exam === null
+                                            )
+                                        >
+                                            Publish
+                                        </button>
+                                    </form>
+                                @endif
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+</body>
+</html>
+
+0000000000000000000000000
+
+
+
+

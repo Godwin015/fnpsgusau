@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pupil Registration | FNPS Gusau</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1100px; margin: 30px auto; padding: 0 16px; color: #263346; }
+        h1, h2 { color: #173c2b; }
+        .panel { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select { width: 100%; box-sizing: border-box; padding: 10px; }
+        button { padding: 10px 16px; margin-top: 16px; cursor: pointer; }
+        .success { color: #176b35; }
+        .error { color: #a21d1d; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        .table-wrap { overflow-x: auto; }
+        @media (max-width: 650px) { .form-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <h1>FNPS Gusau</h1>
+    <p>
+        <a href="{{ route('staff.dashboard') }}">
+            &larr; Back to Staff Dashboard
+        </a>
+    </p>
+    <p><a href="{{ route('academic-sessions.index') }}">Academic Sessions</a> / Pupil Registration</p>
+
+    @if (session('success'))
+        <p class="success">{{ session('success') }}</p>
+    @endif
+
+    
+    @if (session('generated_credentials'))
+        <div class="panel">
+            <h2>New Pupil Login Details</h2>
+
+            <p>
+                Give these details securely to the pupil's parent.
+                The initial PIN is displayed only on this page after registration.
+            </p>
+
+            <p>
+                <strong>Admission Number / Username:</strong>
+                {{ session('generated_credentials.admission_number') }}
+            </p>
+
+            <p>
+                <strong>Temporary four-digit PIN:</strong>
+                {{ session('generated_credentials.pin') }}
+            </p>
+
+            <p>
+                The parent will be required to change the PIN at first login.
+            </p>
+
+            <button type="button" onclick="window.print()">
+                Print Login Details
+            </button>
+        </div>
+    @endif
+
+
+    @if ($errors->any())
+        <div class="error">
+            <strong>Please correct these errors:</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="panel">
+        <h2>Register a Pupil</h2>
+
+        @if (! $currentSession)
+            <p class="error">
+                No current academic session is set.
+                <a href="{{ route('academic-sessions.index') }}">Set up a current session first.</a>
+            </p>
+        @else
+            <p>Current session: <strong>{{ $currentSession->name }}</strong></p>
+
+            <form method="POST" action="{{ route('students.store') }}">
+                @csrf
+
+                <div class="form-grid">
+                    <div>
+                        <label>Admission Number</label>
+                        <p>Generated automatically after registration.</p>
+                    </div>
+
+                    <div>
+                        <label for="first_name">First Name *</label>
+                        <input id="first_name" name="first_name"
+                               value="{{ old('first_name') }}" maxlength="100" required>
+                    </div>
+
+                    <div>
+                        <label for="last_name">Surname *</label>
+                        <input id="last_name" name="last_name"
+                               value="{{ old('last_name') }}" maxlength="100" required>
+                    </div>
+
+                    <div>
+                        <label for="middle_name">Middle Name</label>
+                        <input id="middle_name" name="middle_name"
+                               value="{{ old('middle_name') }}" maxlength="100">
+                    </div>
+
+                    <div>
+                        <label for="date_of_birth">Date of Birth</label>
+                        <input id="date_of_birth" type="date" name="date_of_birth"
+                               value="{{ old('date_of_birth') }}"
+                               max="{{ now()->toDateString() }}">
+                    </div>
+
+                    <div>
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="">Select gender</option>
+                            <option value="male" @selected(old('gender') === 'male')>Male</option>
+                            <option value="female" @selected(old('gender') === 'female')>Female</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="section_id">Class and Section *</label>
+                        <select id="section_id" name="section_id" required>
+                            <option value="">Select class and section</option>
+                            @foreach ($classLevels as $level)
+                                <optgroup label="{{ $level->name }}">
+                                    @foreach ($level->sections as $section)
+                                        <option value="{{ $section->id }}"
+                                            @selected((string) old('section_id') === (string) $section->id)>
+                                            {{ $level->name }} - {{ $section->name }}
+                                        </option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit">Register Pupil</button>
+            </form>
+        @endif
+    </div>
+
+    <div class="panel">
+        <h2>Registered Pupils</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Admission No.</th>
+                        <th>Pupil Name</th>
+                        <th>Current Listed Enrolment</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($students as $student)
+                        @php($enrolment = $student->enrollments->first())
+
+                        <tr>
+                            <td>{{ $student->admission_number }}</td>
+                            <td>
+                                {{ $student->last_name }}, {{ $student->first_name }}
+                                {{ $student->middle_name }}
+                            </td>
+                            <td>
+                                @if ($enrolment)
+                                    {{ $enrolment->section->classLevel->name }}
+                                    - {{ $enrolment->section->name }}
+                                    ({{ $enrolment->academicSession->name }})
+                                @else
+                                    No enrolment
+                                @endif
+                            </td>
+                            <td>{{ ucfirst($student->status) }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4">No pupils registered yet.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <div>{{ $students->links() }}</div>
+    </div>
+</body>
+</html>
+
