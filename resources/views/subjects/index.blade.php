@@ -93,8 +93,8 @@
 
         .school-logo {
             display: block;
-            width: 88px;
-            height: 88px;
+            width: 130px;
+            height: 130px;
             object-fit: contain;
             margin: 0 auto;
         }
@@ -1119,7 +1119,7 @@
                 <p>Gusau, Zamfara State</p>
 
                 <span class="school-tagline">
-                    Academic Excellence and Integrity
+                    Diligence & Success
                 </span>
             </div>
 

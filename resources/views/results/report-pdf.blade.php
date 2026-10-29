@@ -33,8 +33,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             object-fit: contain;
         }
 
