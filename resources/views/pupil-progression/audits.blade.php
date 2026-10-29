@@ -755,16 +755,7 @@
 
         <div class="back-links">
 
-            <a
-            href="{{ route('staff-management.index') }}"
-            class="back-link"
-        >
-
-            <span aria-hidden="true">←</span>
-
-            Back to Staff Management
-
-        </a>
+            
         </div>
 
         <!-- Welcome Banner -->
@@ -781,6 +772,16 @@
             </p>
 
         </section>
+        <a
+            href="{{ route('staff-management.index') }}"
+            class="back-link"
+        >
+
+            <span aria-hidden="true">←</span>
+
+            Back to Staff Management
+
+        </a>
 
         <!-- Filter Panel -->
 

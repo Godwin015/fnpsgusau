@@ -875,15 +875,7 @@
             </p>
         </div>
 
-        <!-- Back to Staff Management -->
-
-        <a
-            href="{{ route('staff-management.index') }}"
-            class="back-link"
-        >
-            <span aria-hidden="true">←</span>
-            Back to Staff Management
-        </a>
+       
 
         <!-- Success Message -->
 
@@ -924,6 +916,15 @@
             </p>
 
         </section>
+         <!-- Back to Staff Management -->
+
+        <a
+            href="{{ route('staff-management.index') }}"
+            class="back-link"
+        >
+            <span aria-hidden="true">←</span>
+            Back to Staff Management
+        </a>
 
         <!-- Temporary PIN Confirmation -->
 

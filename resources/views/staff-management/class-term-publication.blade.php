@@ -942,26 +942,7 @@
 
     <main class="page-container">
 
-        {{-- Back Navigation --}}
-        <a
-            href="{{ route('staff-management.index') }}"
-            class="back-link"
-        >
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-            >
-                <path d="m15 18-6-6 6-6"/>
-                <path d="M9 12h12"/>
-            </svg>
-
-            Back to Staff Management
-        </a>
+      
 
         {{-- Page Heading --}}
         <div class="page-heading">
@@ -1005,6 +986,26 @@
 
             </div>
         </section>
+          {{-- Back Navigation --}}
+        <a
+            href="{{ route('staff-management.index') }}"
+            class="back-link"
+        >
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <path d="m15 18-6-6 6-6"/>
+                <path d="M9 12h12"/>
+            </svg>
+
+            Back to Staff Management
+        </a>
 
         {{-- Success Message --}}
         @if (session('success'))

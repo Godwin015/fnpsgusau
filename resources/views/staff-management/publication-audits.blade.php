@@ -830,7 +830,36 @@
 
     <main class="page-container">
 
-        {{-- Back Navigation --}}
+       
+
+        {{-- Page Heading --}}
+        <div class="page-heading">
+            <h2>Publication Audit History</h2>
+
+            <p>
+                Review publication activity, track result eligibility
+                checks, and inspect the history of class and term
+                publication actions.
+            </p>
+        </div>
+
+        {{-- Welcome Banner --}}
+        <section class="welcome-banner">
+            <div class="welcome-content">
+
+
+                <h3>Track Result Publication Activity</h3>
+
+                <p>
+                    Explore the audit history for academic sessions,
+                    class sections, and terms. Review who performed
+                    each action, how many pupils were eligible or
+                    excluded, and the recorded audit details.
+                </p>
+
+            </div>
+        </section>
+         {{-- Back Navigation --}}
         <a
             href="{{ route('staff-management.index') }}"
             class="back-link"
@@ -850,53 +879,6 @@
 
             Back to Staff Management
         </a>
-
-        {{-- Page Heading --}}
-        <div class="page-heading">
-            <h2>Publication Audit History</h2>
-
-            <p>
-                Review publication activity, track result eligibility
-                checks, and inspect the history of class and term
-                publication actions.
-            </p>
-        </div>
-
-        {{-- Welcome Banner --}}
-        <section class="welcome-banner">
-            <div class="welcome-content">
-
-                <span class="welcome-label">
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-                        <path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5h-3"/>
-                        <path d="M14 3v5h5"/>
-                        <path d="M8 13h8"/>
-                        <path d="M8 17h8"/>
-                        <path d="M8 9h2"/>
-                    </svg>
-
-                    Publication Records
-                </span>
-
-                <h3>Track Result Publication Activity</h3>
-
-                <p>
-                    Explore the audit history for academic sessions,
-                    class sections, and terms. Review who performed
-                    each action, how many pupils were eligible or
-                    excluded, and the recorded audit details.
-                </p>
-
-            </div>
-        </section>
 
         {{-- Filter Panel --}}
         <section class="panel">
