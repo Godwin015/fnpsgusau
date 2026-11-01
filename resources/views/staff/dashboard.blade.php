@@ -266,6 +266,45 @@
             transform: translateY(-1px);
         }
 
+
+        /* Staff Management Details */
+
+        .staff-management-link {
+            align-items: flex-start;
+        }
+
+        .staff-management-content {
+            display: block;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .staff-management-title {
+            display: block;
+            color: #1e4580;
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .staff-management-description {
+            display: block;
+            color: #718096;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
+        .staff-management-description strong {
+            color: #31558a;
+            font-weight: 700;
+        }
+
+        .staff-management-link .link-arrow {
+            margin-top: 1px;
+        }
+
+
         .link-arrow {
             color: #2563eb;
             font-size: 20px;
@@ -651,6 +690,26 @@
                         <span class="link-arrow" aria-hidden="true">›</span>
                     </a>
 
+                    <!-- Pupil Progression Reversal -->
+
+                    <a
+                        href="{{ route('pupil-progression-corrections.index') }}"
+                        class="dashboard-link"
+                    >
+                        <span>Pupil Progression Reversal</span>
+                        <span class="link-arrow" aria-hidden="true">›</span>
+                    </a>
+
+                    <!-- Progression Audit History -->
+
+                    <a
+                        href="{{ route('pupil-progression.audits') }}"
+                        class="dashboard-link"
+                    >
+                        <span>Progression Audit History</span>
+                        <span class="link-arrow" aria-hidden="true">›</span>
+                    </a>
+
                     <!-- Register & Manage Pupils -->
 
                     <a
@@ -667,11 +726,11 @@
                         href="/staff/results"
                         class="dashboard-link"
                     >
-                        <span>Single Result Publication</span>
+                        <span>Single Result Publication / View Pupils results</span>
                         <span class="link-arrow" aria-hidden="true">›</span>
                     </a>
 
-                    <!-- Staff Management -->
+                    <!-- Staff Management 
 
                     <a
                         href="/staff-management"
@@ -679,8 +738,61 @@
                     >
                         <span>Staff Management</span>
                         <span class="link-arrow" aria-hidden="true">›</span>
-                    </a>
+                    </a> -->
 
+
+                    <!-- Staff Management -->
+
+                    <a
+                        href="/staff-management"
+                        class="dashboard-link staff-management-link"
+                    >
+                        <span class="staff-management-content">
+
+                            <span class="staff-management-title">
+                                Staff Management
+                            </span>
+
+                            <span class="staff-management-description">
+
+                                <strong>1. Pupil Fee Management:</strong>
+                                Change pupil fee payment status to Paid or Not Paid.
+
+                                <br>
+
+                                <strong>2. Pupil Account Management:</strong>
+                                Create pupil accounts and reset pupil PINs.
+
+                                <br>
+
+                                <strong>3. Class Result Publication:</strong>
+                                Publish class results to pupils who have paid their school fees.
+
+                                <br>
+
+                                <strong>4. Publication Audit History:</strong>
+                                View the history of result publication activities.
+
+                                <br>
+
+                                <strong>5. Class Subject Management:</strong>
+                                Add and manage subjects offered in each class.
+
+                                <br>
+
+                                <strong>6. Progression Audit History:</strong>
+                                View the audit history of pupils promoted, demoted, repeated, or transferred to other classes.
+
+                                <br>
+
+                                <strong>7. Staff Account Management:</strong>
+                                Create staff accounts, reset staff PINs, and assign classes to staff.
+
+                            </span>
+                        </span>
+
+                        <span class="link-arrow" aria-hidden="true">›</span>
+                    </a>
 
                 </section>
 

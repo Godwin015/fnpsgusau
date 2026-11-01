@@ -16,21 +16,41 @@ use Illuminate\View\View;
 
 class StudentController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $search = trim((string) $request->query('search', ''));
+
+        $studentsQuery = Student::with([
+            'enrollments' => fn ($query) => $query
+                ->with(['academicSession', 'section.classLevel'])
+                ->orderByDesc('id'),
+        ]);
+
+        // Search by admission number, first name, middle name, or surname.
+        if ($search !== '') {
+            $studentsQuery->where(function ($query) use ($search) {
+                $query->where('admission_number', 'like', "%{$search}%")
+                    ->orWhere('first_name', 'like', "%{$search}%")
+                    ->orWhere('middle_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%");
+            });
+        }
+
         return view('students.index', [
-            'students' => Student::with([
-                'enrollments' => fn ($query) => $query
-                    ->with(['academicSession', 'section.classLevel'])
-                    ->orderByDesc('id'),
-            ])->orderBy('last_name')
+            'students' => $studentsQuery
+                ->orderBy('last_name')
                 ->orderBy('first_name')
-                ->paginate(20),
+                ->paginate(40)
+                ->withQueryString(),
+
+            'search' => $search,
 
             'classLevels' => ClassLevel::where('is_active', true)
-                ->with(['sections' => fn ($query) => $query
-                    ->where('is_active', true)
-                    ->orderBy('name')])
+                ->with([
+                    'sections' => fn ($query) => $query
+                        ->where('is_active', true)
+                        ->orderBy('name'),
+                ])
                 ->orderBy('sort_order')
                 ->get(),
 
@@ -122,4 +142,20 @@ class StudentController extends Controller
             ->with('success', 'Pupil registered successfully.')
             ->with('generated_credentials', $credentials);
     }
+
+    public function updateStatus(Request $request, Student $student): RedirectResponse
+    {
+        $validated = $request->validate([
+            'status' => ['required', Rule::in(['active', 'inactive'])],
+        ]);
+
+        $student->update([
+            'status' => $validated['status'],
+        ]);
+
+        return redirect()
+            ->route('students.index', $request->only('search', 'page'))
+            ->with('success', 'Pupil status updated successfully.');
+    }
 }
+

@@ -580,6 +580,153 @@
                 scroll-behavior: auto !important;
             }
         }
+
+
+        /* Enrollment Status Badge */
+
+        .enrolment-status {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        /* Enrolled */
+
+        .enrolment-status--enrolled {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* Completed */
+
+        .enrolment-status--completed {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        /* Cancelled */
+
+        .enrolment-status--cancelled {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* Cancelled Enrollment Message */
+
+        .cancelled-enrolment-message {
+            margin-top: 15px;
+            padding: 14px;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            background: #fff1f2;
+            color: #991b1b;
+        }
+
+        .cancelled-enrolment-message strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .cancelled-enrolment-message p {
+            margin: 0;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* Academic Results */
+        .results-enrolment-card {
+            margin-top: 18px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #ffffff;
+        }
+
+        .results-enrolment-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .results-enrolment-header h3 {
+            margin: 0;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .results-enrolment-header p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .results-terms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .results-term-card {
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        .results-term-heading {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .results-term-heading strong {
+            color: var(--text);
+            font-size: 14px;
+        }
+
+        .results-term-card p {
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .results-publication-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .results-publication-badge--published {
+            color: #166534;
+            background: #dcfce7;
+        }
+
+        .results-publication-badge--unpublished {
+            color: #92400e;
+            background: #fef3c7;
+        }
+
+        @media (max-width: 768px) {
+            .results-terms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-enrolment-header {
+                flex-direction: column;
+            }
+        }
+        
     </style>
 </head>
 
@@ -723,6 +870,7 @@
 
         </p>
 
+
         @forelse ($student->enrollments as $enrolment)
 
             <div class="enrolment-card">
@@ -736,77 +884,91 @@
                     <div>
 
                         <h3>
-
                             {{ $enrolment->academicSession->name }}
-
                         </h3>
 
                         <p>
-
                             {{ $enrolment->section->classLevel->name }}
-
                             {{ $enrolment->section->name }}
-
                         </p>
+
+                        <span class="enrolment-status enrolment-status--{{ $enrolment->enrollment_status }}">
+                            {{ ucfirst($enrolment->enrollment_status) }}
+                        </span>
 
                     </div>
 
                 </div>
 
-                <form
-                    class="result-form"
-                    method="GET"
-                    action="{{ route('parent.results.pdf') }}"
-                >
+                @if ($enrolment->enrollment_status === 'cancelled')
 
-                    <input
-                        type="hidden"
-                        name="session_id"
-                        value="{{ $enrolment->academic_session_id }}"
+                    <div class="cancelled-enrolment-message">
+
+                        <strong>Enrollment Cancelled</strong>
+
+                        <p>
+                            This enrollment has been cancelled.
+                            Results cannot be downloaded through this enrollment.
+                        </p>
+
+                    </div>
+
+                @else
+
+                    <form
+                        class="result-form"
+                        method="GET"
+                        action="{{ route('parent.results.pdf') }}"
                     >
 
-                    <label for="term-{{ $enrolment->id }}">
+                        <input
+                            type="hidden"
+                            name="session_id"
+                            value="{{ $enrolment->academic_session_id }}"
+                        >
 
-                        Select Academic Term
+                        <label for="term-{{ $enrolment->id }}">
+                            Select Academic Term
+                        </label>
 
-                    </label>
+                        <select
+                            id="term-{{ $enrolment->id }}"
+                            name="term"
+                            required
+                        >
 
-                    <select
-                        id="term-{{ $enrolment->id }}"
-                        name="term"
-                        required
-                    >
+                            <option value="">
+                                Choose a term
+                            </option>
 
-                        <option value="">
-                            Choose a term
-                        </option>
+                            <option value="First Term">
+                                First Term
+                            </option>
 
-                        <option value="First Term">
-                            First Term
-                        </option>
+                            <option value="Second Term">
+                                Second Term
+                            </option>
 
-                        <option value="Second Term">
-                            Second Term
-                        </option>
+                            <option value="Third Term">
+                                Third Term
+                            </option>
 
-                        <option value="Third Term">
-                            Third Term
-                        </option>
+                        </select>
 
-                    </select>
+                        <button
+                            type="submit"
+                            class="download-button"
+                        >
 
-                    <button
-                        type="submit"
-                        class="download-button"
-                    >
+                            <span aria-hidden="true">📄</span>
 
-                        <span aria-hidden="true">📄</span>
+                            Download My Results PDF
 
-                        Download My Results PDF
+                        </button>
 
-                    </button>
+                    </form>
 
-                </form>
+                @endif
 
             </div>
 
@@ -818,32 +980,131 @@
 
         @endforelse
 
+
     </div>
 
     <!-- RESULTS INFORMATION -->
-
     <div class="panel">
-
         <h2>📄 Academic Results</h2>
 
-        <div class="results-info">
+        <p class="section-description">
+            View publication and fee information for each academic term.
+            Results can only be downloaded when they have been published
+            and the required result and fee conditions have been met.
+        </p>
 
-            <div class="results-info-icon">
-                ℹ️
+        @forelse ($student->enrollments as $enrolment)
+
+            <div class="results-enrolment-card">
+
+                <div class="results-enrolment-header">
+                    <div>
+                        <h3>
+                            {{ $enrolment->academicSession->name
+                                ?? 'Academic Session' }}
+                        </h3>
+
+                        <p>
+                            {{ $enrolment->section->classLevel->name
+                                ?? 'Class' }}
+
+                            —
+                            {{ $enrolment->section->name
+                                ?? 'Section' }}
+                        </p>
+                    </div>
+
+                    <span class="enrolment-status enrolment-status--{{ $enrolment->enrollment_status }}">
+                        {{ ucfirst($enrolment->enrollment_status) }}
+                    </span>
+                </div>
+
+                @if ($enrolment->enrollment_status === 'cancelled')
+
+                    <div class="results-info">
+                        <div class="results-info-icon">ℹ️</div>
+
+                        <p>
+                            This enrollment has been cancelled.
+                            Results are not available for this enrollment.
+                        </p>
+                    </div>
+
+                @else
+
+                    <div class="results-terms-grid">
+
+                        @foreach ($terms as $term)
+
+                            @php
+                                $publicationGroup = $publications->get(
+                                    $enrolment->academic_session_id
+                                    . '-'
+                                    . $enrolment->section_id,
+                                    collect()
+                                );
+
+                                $publication = $publicationGroup
+                                    ->firstWhere('term', $term);
+
+                                $isPublished = $publication
+                                    && $publication->is_published
+                                    && $publication->published_at;
+
+                                $feeStatus = $enrolment->feeStatuses
+                                    ->firstWhere('term', $term);
+                            @endphp
+
+                            <div class="results-term-card">
+
+                                <div class="results-term-heading">
+                                    <strong>{{ $term }}</strong>
+
+                                    <span class="results-publication-badge
+                                        {{ $isPublished
+                                            ? 'results-publication-badge--published'
+                                            : 'results-publication-badge--unpublished' }}">
+                                        {{ $isPublished
+                                            ? 'Published'
+                                            : 'Not Published' }}
+                                    </span>
+                                </div>
+
+                                <p>
+                                    <strong>Fee Status:</strong>
+
+                                    @if ($feeStatus)
+                                        {{ ucfirst(str_replace(
+                                            '_',
+                                            ' ',
+                                            $feeStatus->status
+                                        )) }}
+                                    @else
+                                        Not Recorded
+                                    @endif
+                                </p>
+
+                            </div>
+
+                        @endforeach
+
+                    </div>
+
+                @endif
+
             </div>
 
-            <p>
+        @empty
 
-                Select an academic session and term from the
-                enrolment history above to download your child's
-                available published results.
+            <div class="results-info">
+                <div class="results-info-icon">ℹ️</div>
 
-                Results that have not been published will
-                not be downloadable.
+                <p>
+                    No enrollment records were found for this pupil.
+                </p>
+            </div>
 
-            </p>
-
-        </div>
+        @endforelse
 
     </div>
 

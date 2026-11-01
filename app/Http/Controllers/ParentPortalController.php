@@ -69,16 +69,48 @@ class ParentPortalController extends Controller
         return redirect()->route('parent.dashboard');
     }
 
+    
     public function dashboard(): View
     {
         $student = Auth::user()->student()->with([
             'enrollments' => fn ($query) => $query
-                ->with(['academicSession', 'section.classLevel'])
+                ->with([
+                    'academicSession',
+                    'section.classLevel',
+                    'feeStatuses',
+                ])
                 ->orderByDesc('id'),
         ])->firstOrFail();
 
-        return view('parent-portal.dashboard', compact('student'));
+        $terms = StudentFeeStatus::TERMS;
+
+        $sessionIds = $student->enrollments
+            ->pluck('academic_session_id')
+            ->unique()
+            ->values();
+
+        $sectionIds = $student->enrollments
+            ->pluck('section_id')
+            ->unique()
+            ->values();
+
+        $publications = ClassTermPublication::query()
+            ->whereIn('academic_session_id', $sessionIds)
+            ->whereIn('section_id', $sectionIds)
+            ->get()
+            ->groupBy(
+                fn ($publication) =>
+                    $publication->academic_session_id
+                    . '-'
+                    . $publication->section_id
+            );
+
+        return view(
+            'parent-portal.dashboard',
+            compact('student', 'terms', 'publications')
+        );
     }
+
 
    
     
@@ -112,6 +144,15 @@ class ParentPortalController extends Controller
             ->with(['academicSession', 'section.classLevel'])
             ->where('academic_session_id', $validated['session_id'])
             ->firstOrFail();
+        
+        if ($enrollment->enrollment_status === 'cancelled') {
+            return redirect()
+                ->route('parent.dashboard')
+                ->with(
+                    'error',
+                    'Results cannot be downloaded for a cancelled enrollment.'
+                );
+        }
 
         $term = $validated['term'];
         $session = $enrollment->academicSession;

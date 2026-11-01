@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Section;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PupilProgressionAudit extends Model
 {
@@ -44,5 +46,29 @@ class PupilProgressionAudit extends Model
     public function performedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'performed_by');
+    }
+
+    public function correction(): HasOne
+    {
+        return $this->hasOne(
+            PupilProgressionCorrection::class,
+            'pupil_progression_audit_id'
+        );
+    }
+
+    public function sourceSection(): BelongsTo
+    {
+        return $this->belongsTo(
+            Section::class,
+            'source_section_id'
+        );
+    }
+
+    public function destinationSection(): BelongsTo
+    {
+        return $this->belongsTo(
+            Section::class,
+            'destination_section_id'
+        );
     }
 }

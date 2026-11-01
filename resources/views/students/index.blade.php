@@ -6,6 +6,8 @@
 
     <title>Pupil Registration | FNPS Gusau</title>
 
+    @livewireStyles
+
     <style>
         :root {
             --primary: #1764d8;
@@ -652,7 +654,6 @@
 
         </div>
 
-
         <div class="page-heading">
 
             <div>
@@ -664,7 +665,6 @@
                 </p>
 
             </div>
-
 
             <div class="header-actions">
 
@@ -686,7 +686,6 @@
 
         </div>
 
-
         <div class="breadcrumb">
 
             <a href="{{ route('staff.dashboard') }}">
@@ -707,7 +706,6 @@
 
     </header>
 
-
     {{-- SUCCESS MESSAGE --}}
 
     @if (session('success'))
@@ -721,7 +719,6 @@
         </div>
 
     @endif
-
 
     {{-- GENERATED PARENT LOGIN DETAILS --}}
 
@@ -737,7 +734,6 @@
 
             </div>
 
-
             <div class="card-body">
 
                 <div class="credential-notice">
@@ -750,40 +746,29 @@
 
                 </div>
 
-
                 <div class="credential-item">
 
                     <span class="credential-label">
-
                         Admission Number / Username
-
                     </span>
 
                     <div class="credential-value">
-
                         {{ session('generated_credentials.admission_number') }}
-
                     </div>
 
                 </div>
-
 
                 <div class="credential-item">
 
                     <span class="credential-label">
-
                         Temporary Four-Digit PIN
-
                     </span>
 
                     <div class="credential-value">
-
                         {{ session('generated_credentials.pin') }}
-
                     </div>
 
                 </div>
-
 
                 <div class="credential-footer">
 
@@ -792,15 +777,14 @@
 
                 </div>
 
-
                 <div class="form-actions">
 
-                    <button type="button"
-                            class="btn btn-success"
-                            onclick="window.print()">
-
+                    <button
+                        type="button"
+                        class="btn btn-success"
+                        onclick="window.print()"
+                    >
                         Print Login Details
-
                     </button>
 
                 </div>
@@ -810,7 +794,6 @@
         </div>
 
     @endif
-
 
     {{-- VALIDATION ERRORS --}}
 
@@ -834,7 +817,6 @@
 
     @endif
 
-
     {{-- REGISTRATION FORM --}}
 
     <div class="card registration-card">
@@ -847,9 +829,7 @@
 
         </div>
 
-
         <div class="card-body">
-
 
             @if (! $currentSession)
 
@@ -866,11 +846,11 @@
 
                     <div style="margin-top: 12px;">
 
-                        <a href="{{ route('academic-sessions.index') }}"
-                           class="btn btn-primary">
-
+                        <a
+                            href="{{ route('academic-sessions.index') }}"
+                            class="btn btn-primary"
+                        >
                             Set Up Academic Session
-
                         </a>
 
                     </div>
@@ -878,7 +858,6 @@
                 </div>
 
             @else
-
 
                 {{-- CURRENT ACADEMIC SESSION --}}
 
@@ -897,40 +876,35 @@
                         </div>
 
                         <strong>
-
                             {{ $currentSession->name }}
-
                         </strong>
 
                     </div>
 
                 </div>
 
-
-                <form method="POST"
-                      action="{{ route('students.store') }}">
+                <form
+                    method="POST"
+                    action="{{ route('students.store') }}"
+                >
 
                     @csrf
 
-
                     <div class="form-grid">
-
 
                         {{-- ADMISSION NUMBER --}}
 
                         <div class="form-group">
 
                             <label>
-
                                 Admission Number
-
                             </label>
 
-                            <div class="form-control"
-                                 style="background: #f8fafc; color: #64748b;">
-
+                            <div
+                                class="form-control"
+                                style="background: #f8fafc; color: #64748b;"
+                            >
                                 Generated automatically
-
                             </div>
 
                             <div class="form-hint">
@@ -942,15 +916,12 @@
 
                         </div>
 
-
                         {{-- FIRST NAME --}}
 
                         <div class="form-group">
 
                             <label for="first_name">
-
                                 First Name *
-
                             </label>
 
                             <input
@@ -965,15 +936,12 @@
 
                         </div>
 
-
                         {{-- SURNAME --}}
 
                         <div class="form-group">
 
                             <label for="last_name">
-
                                 Surname *
-
                             </label>
 
                             <input
@@ -988,15 +956,12 @@
 
                         </div>
 
-
                         {{-- MIDDLE NAME --}}
 
                         <div class="form-group">
 
                             <label for="middle_name">
-
                                 Middle Name
-
                             </label>
 
                             <input
@@ -1010,15 +975,12 @@
 
                         </div>
 
-
                         {{-- DATE OF BIRTH --}}
 
                         <div class="form-group">
 
                             <label for="date_of_birth">
-
                                 Date of Birth
-
                             </label>
 
                             <input
@@ -1039,15 +1001,12 @@
 
                         </div>
 
-
                         {{-- GENDER --}}
 
                         <div class="form-group">
 
                             <label for="gender">
-
                                 Gender
-
                             </label>
 
                             <select
@@ -1057,42 +1016,33 @@
                             >
 
                                 <option value="">
-
                                     Select gender
-
                                 </option>
 
                                 <option
                                     value="male"
                                     @selected(old('gender') === 'male')
                                 >
-
                                     Male
-
                                 </option>
 
                                 <option
                                     value="female"
                                     @selected(old('gender') === 'female')
                                 >
-
                                     Female
-
                                 </option>
 
                             </select>
 
                         </div>
 
-
                         {{-- CLASS AND SECTION --}}
 
                         <div class="form-group">
 
                             <label for="section_id">
-
                                 Class and Section *
-
                             </label>
 
                             <select
@@ -1103,11 +1053,8 @@
                             >
 
                                 <option value="">
-
                                     Select class and section
-
                                 </option>
-
 
                                 @foreach ($classLevels as $level)
 
@@ -1147,23 +1094,20 @@
 
                         </div>
 
-
                     </div>
-
 
                     {{-- SUBMIT BUTTON --}}
 
                     <div class="form-actions">
 
-                        <button type="submit"
-                                class="btn btn-primary">
-
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
                             Register Pupil
-
                         </button>
 
                     </div>
-
 
                 </form>
 
@@ -1172,7 +1116,6 @@
         </div>
 
     </div>
-
 
     {{-- REGISTERED PUPILS --}}
 
@@ -1186,199 +1129,31 @@
 
         </div>
 
-
         <div class="card-body">
-
 
             <div class="table-toolbar">
 
                 <div>
 
                     <h3>
-
                         Pupil Records
-
                     </h3>
 
                     <p>
-
-                        View registered pupils and their current
-                        listed enrolment.
-
+                        Search registered pupils by name or admission number.
                     </p>
 
                 </div>
 
             </div>
 
+            {{-- LIVEWIRE PUPIL SEARCH --}}
 
-            <div class="table-wrap">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Admission No.
-                            </th>
-
-                            <th>
-                                Pupil Name
-                            </th>
-
-                            <th>
-                                Current Listed Enrolment
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-
-                        @forelse ($students as $student)
-
-                            @php($enrolment = $student->enrollments->first())
-
-
-                            <tr>
-
-
-                                {{-- ADMISSION NUMBER --}}
-
-                                <td>
-
-                                    <span class="admission-number">
-
-                                        {{ $student->admission_number }}
-
-                                    </span>
-
-                                </td>
-
-
-                                {{-- PUPIL NAME --}}
-
-                                <td>
-
-                                    <span class="pupil-name">
-
-                                        {{ $student->last_name }},
-                                        {{ $student->first_name }}
-                                        {{ $student->middle_name }}
-
-                                    </span>
-
-                                </td>
-
-
-                                {{-- CURRENT ENROLMENT --}}
-
-                                <td>
-
-                                    @if ($enrolment)
-
-                                        {{ $enrolment->section->classLevel->name }}
-
-                                        -
-
-                                        {{ $enrolment->section->name }}
-
-                                        <div class="form-hint">
-
-                                            {{ $enrolment->academicSession->name }}
-
-                                        </div>
-
-                                    @else
-
-                                        <span class="text-muted">
-
-                                            No enrolment
-
-                                        </span>
-
-                                    @endif
-
-                                </td>
-
-
-                                {{-- STATUS --}}
-
-                                <td>
-
-                                    <span class="status-badge">
-
-                                        {{ ucfirst($student->status) }}
-
-                                    </span>
-
-                                </td>
-
-
-                            </tr>
-
-
-                        @empty
-
-
-                            <tr>
-
-                                <td colspan="4">
-
-                                    <div class="empty-state">
-
-                                        <strong>
-
-                                            No pupils registered yet.
-
-                                        </strong>
-
-                                        <p>
-
-                                            Registered pupils will appear
-                                            here after registration.
-
-                                        </p>
-
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-
-                        @endforelse
-
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-
-            {{-- PAGINATION --}}
-
-            <div class="pagination-wrap">
-
-                {{ $students->links() }}
-
-            </div>
-
+            <livewire:student-search />
 
         </div>
 
     </div>
-
 
     {{-- FOOTER --}}
 
@@ -1388,8 +1163,9 @@
 
     </div>
 
-
 </div>
+
+@livewireScripts
 
 </body>
 </html>

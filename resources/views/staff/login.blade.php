@@ -454,7 +454,7 @@
             <div class="security-note">
                 <strong>Secure Staff Access</strong>
                 <br>
-                This portal is for authorized FNPS Gusau staff only.
+                This portal is for authorized Fatima Nursery and Primary School Gusau staff only.
             </div>
 
         </section>
@@ -465,7 +465,7 @@
 
     <footer class="footer">
         &copy; {{ date('Y') }}
-        <strong>FNPS Gusau</strong>.
+        <strong>Fatima Nursery and Primary School Gusau</strong>.
         All rights reserved.
     </footer>
 

@@ -213,6 +213,9 @@ Route::middleware(['auth', 'staff', 'super_admin', 'staff.password.changed'])->g
 
     Route::post('/students', [StudentController::class, 'store'])
         ->name('students.store');
+    
+    Route::patch('/students/{student}/status', [StudentController::class, 'updateStatus'])
+        ->name('students.status.update');
 
     Route::get('/academic-sessions', [AcademicSessionController::class, 'index'])
         ->name('academic-sessions.index');
@@ -246,9 +249,27 @@ Route::middleware(['auth', 'staff', 'super_admin', 'staff.password.changed'])->g
         'pupils',
     ])->name('batch-pupil-progression.pupils');
 
+    
     Route::post('/batch-pupil-progression', [
         BatchPupilProgressionController::class,
         'store',
     ])->name('batch-pupil-progression.store');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Super Admin — Progression Correction and Reversal
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/pupil-progression-corrections', [
+        \App\Http\Controllers\SuperAdmin\PupilProgressionCorrectionController::class,
+        'index',
+    ])->name('pupil-progression-corrections.index');
+
+    Route::post('/pupil-progression-corrections/{audit}/reverse', [
+        \App\Http\Controllers\SuperAdmin\PupilProgressionCorrectionController::class,
+        'reverse',
+    ])->name('pupil-progression-corrections.reverse');
+
 });
+
