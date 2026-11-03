@@ -7,668 +7,1132 @@
     <title>Parent Login | FNPS Gusau</title>
 
     <style>
+        /* =========================================
+           FNPS GUSAU PARENT / PUPIL LOGIN
+           Matching the Staff Login design
+        ========================================= */
+
         :root {
-            --primary: #1769d2;
-            --primary-dark: #104da3;
+            --primary: #1d4ed8;
+            --primary-dark: #123f91;
             --primary-light: #eaf3ff;
-            --text: #1e293b;
-            --muted: #64748b;
-            --border: #dce6f2;
+
+            --text: #17345f;
+            --muted: #718096;
+
+            --border: #e4ecf8;
             --white: #ffffff;
-            --danger: #b91c1c;
-            --danger-bg: #fee2e2;
-            --shadow: 0 12px 35px rgba(23, 105, 210, 0.10);
+
+            --danger: #b42335;
+            --danger-bg: #fff1f2;
+
+            --success: #166534;
+            --success-bg: #ecfdf3;
+
+            --shadow:
+                0 20px 55px rgba(0, 30, 80, 0.25);
         }
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
 
         * {
             box-sizing: border-box;
         }
 
+        html {
+            min-height: 100%;
+        }
+
         body {
-            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             min-height: 100vh;
-            padding: 30px 16px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             color: var(--text);
-            background: linear-gradient(
-                180deg,
-                #eaf3ff 0,
-                #f5f9ff 350px,
-                #f7f9fc 100%
-            );
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf2ff,
+                    #f5f8ff,
+                    #dce9ff
+                );
+
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
         }
 
-        .page-container {
-            width: 100%;
-            max-width: 650px;
-            margin: auto;
+        button,
+        input {
+            font-family: inherit;
         }
 
-        /* SCHOOL HEADER */
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* =========================================
+           SCHOOL HEADER
+        ========================================= */
 
         .school-header {
+            width: 100%;
+
+            padding: 22px 35px;
+
+            background: var(--white);
+
+            box-shadow:
+                0 3px 15px rgba(20, 55, 110, 0.08);
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-content {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: 0 auto;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            box-shadow: var(--shadow);
+
+            gap: 20px;
         }
 
-        .school-logo,
-        .school-logo-right {
-            width: 100px;
-            height: 100px;
+        .school-logo {
+            width: 130px;
+            height: 130px;
+
             object-fit: contain;
+
             flex-shrink: 0;
         }
 
-        .school-header-center {
+        .school-title {
             flex: 1;
             min-width: 0;
+
             text-align: center;
         }
 
-        .school-header-center h1 {
-            color: var(--primary-dark);
-            font-size: 23px;
-            line-height: 1.35;
-            font-weight: 800;
+        .school-title h1 {
             margin: 0;
+
+            color: #123f83;
+
+            font-size: 27px;
+            font-weight: 800;
+
+            line-height: 1.35;
+
+            letter-spacing: 0.5px;
         }
 
-        .school-header-center p {
-            color: var(--muted);
-            font-size: 14px;
+        .school-title p {
             margin: 7px 0 0;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
         }
 
         .school-tagline {
             display: inline-block;
+
             margin-top: 10px;
-            padding: 5px 12px;
+
+            padding: 6px 13px;
+
             border-radius: 30px;
-            background: var(--primary-light);
-            color: var(--primary-dark);
+
+            background: #eaf3ff;
+
+            color: #104da3;
+
             font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-weight: 800;
+
+            letter-spacing: 0.6px;
         }
 
-        /* LOGIN CARD */
+        /* =========================================
+           MAIN LOGIN AREA
+        ========================================= */
+
+        .main-content {
+            position: relative;
+            isolation: isolate;
+
+            flex: 1;
+
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 45px 20px;
+
+            overflow: hidden;
+
+            /* School photograph with blue overlay */
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(12, 55, 125, 0.78),
+                    rgba(23, 105, 210, 0.58)
+                ),
+                url("{{ asset('images/school_vicinity.jpeg') }}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* =========================================
+           LOGIN CARD
+        ========================================= */
 
         .login-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px;
+            position: relative;
+            z-index: 1;
+
+            width: 100%;
+            max-width: 440px;
+
+            margin: 0 auto;
+
+            padding: 38px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border: 1px solid rgba(255, 255, 255, 0.85);
+
+            border-radius: 22px;
+
             box-shadow: var(--shadow);
         }
 
-        .login-heading {
-            text-align: center;
-            margin-bottom: 28px;
-        }
+        /* =========================================
+           LOGIN ICON
+        ========================================= */
 
         .login-icon {
+            width: 72px;
+            height: 72px;
+
+            margin: 0 auto 18px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 65px;
-            height: 65px;
-            margin: 0 auto 15px;
-            border-radius: 18px;
-            background: var(--primary-light);
-            color: var(--primary);
-            font-size: 30px;
+
+            background: #e8f0ff;
+
+            border-radius: 50%;
+
+            color: #1d4ed8;
         }
 
-        .login-heading h2 {
-            color: var(--primary-dark);
-            font-size: 25px;
+        .login-icon svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        /* =========================================
+           LOGIN HEADING
+        ========================================= */
+
+        .login-card h2 {
+            text-align: center;
+
             margin: 0;
+
+            color: #173f7a;
+
+            font-size: 27px;
+            font-weight: 800;
+
+            line-height: 1.35;
         }
 
-        .login-heading p {
-            color: var(--muted);
+        .login-subtitle {
+            text-align: center;
+
+            color: #718096;
+
             font-size: 14px;
+
             line-height: 1.6;
-            margin: 10px 0 0;
+
+            margin: 10px 0 28px;
         }
 
-        /* ERROR MESSAGE */
+        /* =========================================
+           SUCCESS AND ERROR MESSAGES
+        ========================================= */
 
-        .error {
-            padding: 14px 16px;
-            margin-bottom: 22px;
+        .message {
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .message.success {
+            color: var(--success);
+
+            background: var(--success-bg);
+
+            border: 1px solid #bbf7d0;
+        }
+
+        .message.error {
             color: var(--danger);
+
             background: var(--danger-bg);
-            border: 1px solid #fecaca;
-            border-radius: 12px;
-            font-size: 14px;
+
+            border: 1px solid #fecdd3;
         }
 
-        .error p {
-            margin: 0;
-            line-height: 1.6;
+        .message.error strong {
+            display: block;
+
+            margin-bottom: 7px;
         }
 
-        .error p + p {
-            margin-top: 8px;
+        .message.error p {
+            margin: 4px 0;
         }
 
-        /* FORM */
+        /* =========================================
+           FORM
+        ========================================= */
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 21px;
         }
 
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: var(--text);
+
+            margin-bottom: 9px;
+
+            color: #243b60;
+
             font-size: 14px;
             font-weight: 700;
         }
 
-        input {
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .form-input {
             display: block;
+
             width: 100%;
             min-height: 50px;
-            padding: 13px 15px;
-            border: 1px solid #cbd8e8;
-            border-radius: 11px;
-            background: #ffffff;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 16px;
+
+            padding: 14px 15px;
+
+            border: 1px solid #d6e0ef;
+
+            border-radius: 10px;
+
+            background: #f9fbff;
+
+            color: #17345f;
+
+            font-size: 15px;
+
             outline: none;
-            transition: border-color 0.2s ease,
-                        box-shadow 0.2s ease;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
         }
 
-        input::placeholder {
-            color: #94a3b8;
+        .form-input::placeholder {
+            color: #9aa9bd;
         }
 
-        input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(23, 105, 210, 0.12);
+        .form-input:focus {
+            border-color: #2563eb;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px rgba(37, 99, 235, 0.12);
         }
 
-        .input-hint {
-            display: block;
-            margin-top: 7px;
-            color: var(--muted);
-            font-size: 12px;
+        /* =========================================
+           ADMISSION NUMBER
+        ========================================= */
+
+        .admission-input {
+            padding-right: 15px;
         }
 
-        /* PIN FIELD */
+        /* =========================================
+           PIN INPUT
+        ========================================= */
 
-        .pin-wrapper {
-            position: relative;
-        }
-
-        .pin-wrapper input {
-            padding-right: 85px;
+        .pin-input {
+            padding-right: 90px;
         }
 
         .toggle-pin {
             position: absolute;
-            right: 10px;
+
             top: 50%;
+            right: 10px;
+
             transform: translateY(-50%);
-            min-height: auto;
+
             width: auto;
+            min-height: auto;
+
             margin: 0;
-            padding: 8px 10px;
+
+            padding: 7px 10px;
+
             border: none;
+
             border-radius: 7px;
-            background: var(--primary-light);
-            color: var(--primary-dark);
+
+            background: #eaf3ff;
+
+            color: #104da3;
+
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
+
             cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
         }
 
         .toggle-pin:hover {
             background: #d7e8ff;
+
+            color: #123f91;
         }
 
-        /* SIGN IN BUTTON */
-
-        .signin-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            min-height: 52px;
-            margin-top: 8px;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 11px;
-            background: var(--primary);
-            color: #ffffff;
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 5px 12px rgba(23, 105, 210, 0.18);
-            transition: background 0.2s ease,
-                        transform 0.2s ease,
-                        box-shadow 0.2s ease;
-        }
-
-        .signin-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 7px 16px rgba(23, 105, 210, 0.22);
-        }
-
-        .signin-button:active {
-            transform: translateY(0);
-        }
-
-        .signin-button:focus-visible,
         .toggle-pin:focus-visible {
             outline: 3px solid #93c5fd;
+
             outline-offset: 3px;
         }
 
-        /* SECURITY NOTE */
+        /* =========================================
+           INPUT HINTS
+        ========================================= */
+
+        .input-hint {
+            display: block;
+
+            margin-top: 7px;
+
+            color: #718096;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+        /* =========================================
+           SIGN IN BUTTON
+        ========================================= */
+
+        .login-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            width: 100%;
+            min-height: 52px;
+
+            margin-top: 8px;
+
+            padding: 15px 20px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #123f91
+                );
+
+            color: #ffffff;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 16px rgba(29, 78, 216, 0.22);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .login-button:hover {
+            background:
+                linear-gradient(
+                    135deg,
+                    #1e40af,
+                    #123575
+                );
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 9px 22px rgba(29, 78, 216, 0.30);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:focus-visible {
+            outline: 3px solid #93c5fd;
+
+            outline-offset: 3px;
+        }
+
+        .login-button:disabled {
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        /* =========================================
+           SECURITY NOTICE
+        ========================================= */
 
         .security-note {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
             margin-top: 22px;
-            padding: 14px;
-            border: 1px solid #dbeafe;
-            border-radius: 11px;
-            background: #f3f8ff;
-        }
 
-        .security-icon {
-            flex-shrink: 0;
-            font-size: 18px;
-        }
+            padding: 17px 14px;
 
-        .security-note p {
-            margin: 0;
-            color: #475569;
-            font-size: 12px;
-            line-height: 1.6;
-        }
+            border-top: 1px solid #edf2f8;
 
-        /* FOOTER */
-
-        .footer {
             text-align: center;
-            padding: 22px 10px 5px;
-            color: var(--muted);
+
+            color: #7b8ba3;
+
             font-size: 12px;
+
             line-height: 1.7;
         }
 
-        /* TABLET */
+        .security-note strong {
+            color: #526784;
 
-        @media (max-width: 600px) {
-            body {
-                padding: 20px 12px;
-            }
-
-            .school-header {
-                gap: 10px;
-                padding: 16px 12px;
-                border-radius: 15px;
-            }
-
-            .school-logo,
-            .school-logo-right {
-                width: 75px;
-                height: 75px;
-            }
-
-            .school-header-center h1 {
-                font-size: 19px;
-            }
-
-            .school-header-center p {
-                font-size: 12px;
-            }
-
-            .login-card {
-                padding: 25px 20px;
-                border-radius: 16px;
-            }
-
-            .login-heading h2 {
-                font-size: 23px;
-            }
+            font-size: 12px;
         }
 
-        /* MOBILE */
+        /* =========================================
+           FOOTER
+        ========================================= */
 
-        @media (max-width: 400px) {
-            body {
-                padding: 14px 10px;
-            }
+        .footer {
+            width: 100%;
+
+            padding: 18px 15px;
+
+            text-align: center;
+
+            color: #718096;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+            background: #ffffff;
+        }
+
+        .footer strong {
+            color: #31558a;
+        }
+
+        /* =========================================
+           TABLET AND MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
 
             .school-header {
-                gap: 6px;
-                padding: 13px 7px;
-                margin-bottom: 18px;
+                padding: 17px 14px;
             }
 
-            .school-logo,
-            .school-logo-right {
-                width: 52px;
-                height: 52px;
+            .header-content {
+                gap: 10px;
             }
 
-            .school-header-center h1 {
-                font-size: 15px;
+            .school-logo {
+                width: 65px;
+                height: 65px;
+            }
+
+            .school-title h1 {
+                font-size: 18px;
+
                 line-height: 1.4;
             }
 
-            .school-header-center p {
+            .school-title p {
                 font-size: 10px;
-                margin-top: 4px;
+
+                letter-spacing: 0.7px;
             }
 
             .school-tagline {
+                margin-top: 7px;
+
+                padding: 5px 9px;
+
                 font-size: 9px;
-                padding: 4px 8px;
-                margin-top: 6px;
+
+                letter-spacing: 0.3px;
+            }
+
+            .main-content {
+                padding: 30px 15px;
+
+                background-position: center;
             }
 
             .login-card {
-                padding: 22px 15px;
+                max-width: 440px;
+
+                padding: 28px 22px;
+
+                border-radius: 18px;
             }
 
             .login-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 25px;
-                border-radius: 15px;
+                width: 65px;
+                height: 65px;
             }
 
-            .login-heading h2 {
-                font-size: 21px;
+            .login-card h2 {
+                font-size: 24px;
             }
 
-            .login-heading p {
+            .login-subtitle {
                 font-size: 13px;
+
+                margin-bottom: 24px;
             }
 
-            input {
-                font-size: 16px;
-            }
-
-            .signin-button {
-                min-height: 50px;
+            .footer {
+                padding: 16px 12px;
             }
         }
 
-        @media (max-width: 320px) {
-            .school-logo,
-            .school-logo-right {
-                width: 42px;
-                height: 42px;
+        /* =========================================
+           SMALL MOBILE
+        ========================================= */
+
+        @media (max-width: 360px) {
+
+            .school-header {
+                padding: 14px 9px;
             }
 
-            .school-header-center h1 {
-                font-size: 13px;
+            .header-content {
+                gap: 6px;
             }
 
-            .school-header-center p {
+            .school-logo {
+                width: 48px;
+                height: 48px;
+            }
+
+            .school-title h1 {
+                font-size: 15px;
+            }
+
+            .school-title p {
                 font-size: 9px;
+
+                letter-spacing: 0.3px;
             }
 
             .school-tagline {
-                display: none;
+                font-size: 8px;
+
+                padding: 4px 7px;
+            }
+
+            .main-content {
+                padding: 24px 10px;
+            }
+
+            .login-card {
+                padding: 25px 17px;
+
+                border-radius: 16px;
+            }
+
+            .login-icon {
+                width: 58px;
+                height: 58px;
+
+                margin-bottom: 15px;
+            }
+
+            .login-card h2 {
+                font-size: 22px;
+            }
+
+            .login-subtitle {
+                font-size: 12px;
+            }
+
+            .form-input {
+                font-size: 16px;
+            }
+
+            .login-button {
+                min-height: 50px;
+
+                font-size: 14px;
             }
         }
 
+        /* =========================================
+           ACCESSIBILITY
+        ========================================= */
+
         @media (prefers-reduced-motion: reduce) {
+
             *,
             *::before,
             *::after {
                 transition: none !important;
+                animation: none !important;
+                scroll-behavior: auto !important;
             }
         }
+
     </style>
 </head>
 
 <body>
 
-<div class="page-container">
+    <!-- =========================================
+         SCHOOL HEADER
+    ========================================= -->
 
-    <!-- SCHOOL HEADER -->
+    <header class="school-header">
 
-    <div class="school-header">
+        <div class="header-content">
 
-        <img
-            src="{{ asset('images/school-logo.jpeg') }}"
-            alt="Fatima Nursery and Primary School Logo"
-            class="school-logo"
-        >
+            <!-- First School Logo -->
 
-        <div class="school-header-center">
+            <img
+                src="{{ asset('images/school-logo.jpeg') }}"
+                alt="Fatima Nursery and Primary School Logo"
+                class="school-logo"
+            >
 
-            <h1>Fatima Nursery and Primary School</h1>
+            <!-- School Name -->
 
-            <p>Gusau, Zamfara State</p>
+            <div class="school-title">
 
-            <span class="school-tagline">
-                PARENT / PUPIL PORTAL
-            </span>
+                <h1>
+                    Fatima Nursery and Primary School
+                </h1>
 
-        </div>
+                <p>
+                    Gusau, Zamfara State
+                </p>
 
-        <img
-            src="{{ asset('images/second-school-logo.jpeg') }}"
-            alt="School Second Logo"
-            class="school-logo-right"
-        >
-
-    </div>
-
-    <!-- LOGIN CARD -->
-
-    <div class="login-card">
-
-        <div class="login-heading">
-
-            <div class="login-icon" aria-hidden="true">
-                🔐
-            </div>
-
-            <h2>Welcome Back</h2>
-
-            <p>
-                Sign in to access your child's information
-                and academic results.
-            </p>
-
-        </div>
-
-        <!-- VALIDATION ERRORS -->
-
-        @if ($errors->any())
-
-            <div class="error" role="alert">
-
-                @foreach ($errors->all() as $error)
-
-                    <p>{{ $error }}</p>
-
-                @endforeach
-
-            </div>
-
-        @endif
-
-        <!-- LOGIN FORM -->
-
-        <form
-            method="POST"
-            action="{{ route('parent.login.submit') }}"
-        >
-
-            @csrf
-
-            <!-- ADMISSION NUMBER -->
-
-            <div class="form-group">
-
-                <label for="login_id">
-                    Admission Number
-                </label>
-
-                <input
-                    id="login_id"
-                    name="login_id"
-                    type="text"
-                    value="{{ old('login_id') }}"
-                    maxlength="100"
-                    autocomplete="username"
-                    placeholder="Enter your admission number"
-                    required
-                    autofocus
-                >
-
-                <span class="input-hint">
-                    Enter the admission number provided by the school.
+                <span class="school-tagline">
+                    PARENT / PUPIL PORTAL
                 </span>
 
             </div>
 
-            <!-- FOUR-DIGIT PIN -->
+            <!-- Second School Logo -->
 
-            <div class="form-group">
+            <img
+                src="{{ asset('images/second-school-logo.jpeg') }}"
+                alt="Fatima Nursery and Primary School Second Logo"
+                class="school-logo"
+            >
 
-                <label for="pin">
-                    Four-digit PIN
-                </label>
+        </div>
 
-                <div class="pin-wrapper">
+    </header>
 
-                    <input
-                        id="pin"
-                        name="pin"
-                        type="password"
-                        inputmode="numeric"
-                        pattern="[0-9]{4}"
-                        minlength="4"
-                        maxlength="4"
-                        autocomplete="current-password"
-                        placeholder="Enter your four-digit PIN"
-                        required
-                    >
 
-                    <button
-                        type="button"
-                        class="toggle-pin"
-                        id="toggle-pin"
-                        aria-controls="pin"
-                        aria-pressed="false"
-                    >
-                        Show PIN
-                    </button>
+    <!-- =========================================
+         MAIN LOGIN AREA
+    ========================================= -->
+
+    <main class="main-content">
+
+        <!-- =====================================
+             LOGIN CARD
+        ===================================== -->
+
+        <section class="login-card">
+
+            <!-- Login Icon -->
+
+            <div class="login-icon" aria-hidden="true">
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+
+                    <rect
+                        x="3"
+                        y="11"
+                        width="18"
+                        height="10"
+                        rx="2"
+                    />
+
+                    <path
+                        d="M7 11V7a5 5 0 0 1 10 0v4"
+                    />
+
+                    <circle
+                        cx="12"
+                        cy="16"
+                        r="1"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <!-- Login Heading -->
+
+            <h2>
+                Welcome Back
+            </h2>
+
+            <p class="login-subtitle">
+
+                Sign in to access your child's information
+                and academic results.
+
+            </p>
+
+
+            <!-- =================================
+                 SUCCESS MESSAGE
+            ================================= -->
+
+            @if (session('success'))
+
+                <div
+                    class="message success"
+                    role="status"
+                >
+
+                    {{ session('success') }}
 
                 </div>
 
-                <span class="input-hint">
-                    Your PIN must contain exactly four digits.
-                </span>
+            @endif
 
-            </div>
 
-            <!-- SIGN IN -->
+            <!-- =================================
+                 VALIDATION ERRORS
+            ================================= -->
 
-            <button
-                type="submit"
-                class="signin-button"
+            @if ($errors->any())
+
+                <div
+                    class="message error"
+                    role="alert"
+                >
+
+                    <strong>
+                        Please check the following:
+                    </strong>
+
+                    @foreach ($errors->all() as $error)
+
+                        <p>
+                            {{ $error }}
+                        </p>
+
+                    @endforeach
+
+                </div>
+
+            @endif
+
+
+            <!-- =================================
+                 PARENT / PUPIL LOGIN FORM
+            ================================= -->
+
+            <form
+                method="POST"
+                action="{{ route('parent.login.submit') }}"
             >
 
-                <span aria-hidden="true">🔓</span>
+                @csrf
 
-                Sign In
 
-            </button>
+                <!-- =================================
+                     ADMISSION NUMBER
+                ================================= -->
 
-        </form>
+                <div class="form-group">
 
-        <!-- SECURITY INFORMATION -->
+                    <label for="login_id">
 
-        <div class="security-note">
+                        Admission Number
 
-            <div class="security-icon" aria-hidden="true">
-                🛡️
-            </div>
+                    </label>
 
-            <p>
+                    <input
+                        id="login_id"
+                        class="form-input admission-input"
+                        name="login_id"
+                        type="text"
+                        value="{{ old('login_id') }}"
+                        maxlength="100"
+                        autocomplete="username"
+                        placeholder="Enter your admission number"
+                        required
+                        autofocus
+                    >
+
+                    <span class="input-hint">
+
+                        Enter the admission number provided by the school.
+
+                    </span>
+
+                </div>
+
+
+                <!-- =================================
+                     FOUR-DIGIT PIN
+                ================================= -->
+
+                <div class="form-group">
+
+                    <label for="pin">
+
+                        Four-digit PIN
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            id="pin"
+                            class="form-input pin-input"
+                            name="pin"
+                            type="password"
+                            inputmode="numeric"
+                            pattern="[0-9]{4}"
+                            minlength="4"
+                            maxlength="4"
+                            autocomplete="current-password"
+                            placeholder="Enter your four-digit PIN"
+                            required
+                        >
+
+                        <!-- Show / Hide PIN -->
+
+                        <button
+                            type="button"
+                            class="toggle-pin"
+                            id="toggle-pin"
+                            aria-controls="pin"
+                            aria-pressed="false"
+                        >
+
+                            Show PIN
+
+                        </button>
+
+                    </div>
+
+                    <span class="input-hint">
+
+                        Your PIN must contain exactly four digits.
+
+                    </span>
+
+                </div>
+
+
+                <!-- =================================
+                     SIGN IN BUTTON
+                ================================= -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+
+                    <span aria-hidden="true">
+                        🔒
+                    </span>
+
+                    Sign In
+
+                </button>
+
+
+            </form>
+
+
+            <!-- =================================
+                 SECURITY NOTICE
+            ================================= -->
+
+            <div class="security-note">
+
+                <strong>
+                    Secure Parent / Pupil Access
+                </strong>
+
+                <br>
+
                 Your login details are private.
+
                 Please do not share your admission number
                 or PIN with anyone.
-            </p>
 
-        </div>
+            </div>
 
-    </div>
 
-    <!-- FOOTER -->
+        </section>
 
-    <div class="footer">
+    </main>
 
-        Fatima Nursery and Primary School
 
-        <br>
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
 
-        Gusau, Zamfara State
+    <footer class="footer">
+
+        &copy; {{ date('Y') }}
+
+        <strong>
+            Fatima Nursery and Primary School Gusau
+        </strong>
+
+        . All rights reserved.
 
         <br>
 
         Parent / Pupil Portal
 
-    </div>
+    </footer>
 
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <!-- =========================================
+         SHOW / HIDE PIN
+    ========================================= -->
 
-        const pinInput = document.getElementById('pin');
-        const toggleButton = document.getElementById('toggle-pin');
+    <script>
 
-        toggleButton.addEventListener('click', function () {
+        document.addEventListener('DOMContentLoaded', function () {
 
-            const isHidden = pinInput.type === 'password';
+            const pinInput =
+                document.getElementById('pin');
 
-            pinInput.type = isHidden ? 'text' : 'password';
+            const toggleButton =
+                document.getElementById('toggle-pin');
 
-            toggleButton.textContent = isHidden
-                ? 'Hide PIN'
-                : 'Show PIN';
 
-            toggleButton.setAttribute(
-                'aria-pressed',
-                isHidden ? 'true' : 'false'
-            );
+            if (!pinInput || !toggleButton) {
+                return;
+            }
+
+
+            toggleButton.addEventListener('click', function () {
+
+                const isPinHidden =
+                    pinInput.type === 'password';
+
+
+                // Show or hide the PIN
+
+                pinInput.type = isPinHidden
+                    ? 'text'
+                    : 'password';
+
+
+                // Update button text
+
+                toggleButton.textContent = isPinHidden
+                    ? 'Hide PIN'
+                    : 'Show PIN';
+
+
+                // Update accessibility state
+
+                toggleButton.setAttribute(
+                    'aria-pressed',
+                    isPinHidden ? 'true' : 'false'
+                );
+
+
+            });
 
         });
 
-    });
-</script>
+    </script>
 
 </body>
 </html>

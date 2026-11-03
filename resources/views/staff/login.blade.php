@@ -67,6 +67,69 @@
             text-transform: uppercase;
         }
 
+        /* SCHOOL PHOTO BACKGROUND */
+
+.main-content {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(12, 55, 125, 0.78),
+            rgba(23, 105, 210, 0.58)
+        ),
+        url("{{ asset('images/school_vicinity2.jpeg') }}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 0;
+}
+
+/* Login card stays clearly above the photograph */
+
+.login-card {
+    position: relative;
+    z-index: 1;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.85);
+
+    box-shadow:
+        0 20px 55px rgba(0, 30, 80, 0.25);
+}
+
+/* Staff login blue heading */
+
+.login-card h2 {
+    color: #104da3;
+}
+
+/* Staff login icon */
+
+.login-icon {
+    background: #eaf3ff;
+    color: #1769d2;
+}
+
+/* Mobile background */
+
+@media (max-width: 600px) {
+
+    .main-content {
+        padding: 25px 12px;
+        background-position: center;
+    }
+
+    .login-card {
+        border-radius: 18px;
+    }
+}
+
         /* Main Login Area */
 
         .main-content {
