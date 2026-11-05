@@ -473,6 +473,30 @@
             margin: 0 auto 17px;
         }
 
+        .about-image-wrapper {
+            position: relative;
+            width: 350px;
+            max-width: 100%;
+            margin: 0 auto 17px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .about-image-wrapper img {
+            display: block;
+            width: 100%;
+            margin: 0;
+            cursor: zoom-in;
+        }
+
+        .about-image-wrapper .gallery-image-button {
+            z-index: 3;
+        }
+
+        .about-image-wrapper:hover .gallery-image-button::after {
+            opacity: 1;
+        }
+
         .about-visual h3 {
             font-size: 23px;
             margin-bottom: 8px;
@@ -527,6 +551,8 @@
 
         .leader-grid {
             display: grid;
+            gap-template-columns: 1fr;
+            justify-items:center;
             gap: 22px;
         }
 
@@ -547,6 +573,44 @@
             color: var(--blue);
             background: linear-gradient(135deg,#dce9fb,#f1f6ff);
         }
+
+
+/* His Lordship Rev. Dr. Matthew Hassan Kukah photograph */
+
+.leader-photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.leader-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    max-height: 420px;
+
+    object-fit: contain;
+    object-position: center top;
+
+    border-radius: 18px;
+
+    transition: transform 0.4s ease;
+}
+
+.leader-photo:hover .leader-image {
+    transform: scale(1.03);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .leader-image {
+        min-height: 250px;
+        max-height: 350px;
+    }
+}
+
 
         .leader-photo .photo-placeholder {
             width: 95px;
@@ -641,6 +705,7 @@
         }
 
         .facility-image {
+            position: relative;
             height: 190px;
             overflow: hidden;
             background: var(--blue-light);
@@ -775,6 +840,12 @@
         }
 
         .gallery-item:hover .gallery-image-button::after {
+            opacity: 1;
+        }
+
+        /* Show view-image label on leadership photographs */
+
+        .leader-photo:hover .gallery-image-button::after {
             opacity: 1;
         }
 
@@ -989,7 +1060,8 @@
             }
 
             .leader-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: minmax(0, 850px);
+                justify-content:center;
             }
 
             .facility-grid {
@@ -1080,6 +1152,87 @@
                 transition-duration: .01ms !important;
             }
         }
+
+
+.gallery-media video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #000;
+    border-radius: 12px;
+}
+
+/* Keep video controls accessible on smaller screens */
+.gallery-media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    border-radius: 12px;
+}
+
+.gallery-media video:focus-visible {
+    outline: 3px solid #f5bd45;
+    outline-offset: 3px;
+}
+
+
+/* FLOATING TOP / BOTTOM NAVIGATION BUTTON */
+
+.page-scroll-button {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 1500;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid rgba(255,255,255,.8);
+    border-radius: 50%;
+
+    color: white;
+    background: var(--blue);
+
+    font-size: 27px;
+    font-weight: bold;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
+
+    cursor: pointer;
+    transition: background .25s, transform .25s, box-shadow .25s;
+}
+
+.page-scroll-button:hover {
+    background: var(--blue-dark);
+    transform: translateY(-4px);
+    box-shadow: 0 9px 25px rgba(0,0,0,.3);
+}
+
+.page-scroll-button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+    .page-scroll-button {
+        width: 46px;
+        height: 46px;
+        right: 16px;
+        bottom: 18px;
+        font-size: 24px;
+    }
+}
+
+
+
     </style>
 </head>
 
@@ -1283,18 +1436,27 @@
 
                 <div class="about-visual">
 
-                    <div>
+                    <div class="about-image-wrapper">
 
                         <img src="{{ asset('images/school_vicinity2.jpeg') }}"
-                             alt="Fatima Nursery and Primary School emblem">
+                            alt="Fatima Nursery and Primary School, Gusau">
 
-                        <h3>Fatima Nursery and Primary School, Gusau</h3>
-
-                        <p>
-                            Diligence & Success
-                        </p>
+                        <button
+                            class="gallery-image-button"
+                            type="button"
+                            data-lightbox
+                            data-src="{{ asset('images/school_vicinity2.jpeg') }}"
+                            data-caption="Fatima Nursery and Primary School, Gusau — Diligence & Success"
+                            aria-label="View Fatima Nursery and Primary School photograph enlarged"
+                        ></button>
 
                     </div>
+
+                    <h3>Fatima Nursery and Primary School, Gusau</h3>
+
+                    <p>
+                        Diligence & Success
+                    </p>
 
                 </div>
 
@@ -1325,122 +1487,22 @@
                         <div class="feature">
                             <div class="feature-icon">✓</div>
                             <div>
-                                <strong>Learning and Development</strong>
-                                <span>Supporting pupils through meaningful learning experiences.</span>
+                                <strong>Diligence</strong>
+                                <span>Promoting hard work, discipline, dedication and a commitment to excellence in learning.</span>
                             </div>
                         </div>
 
                         <div class="feature">
                             <div class="feature-icon">✓</div>
                             <div>
-                                <strong>Character and Responsibility</strong>
-                                <span>Encouraging respect, discipline and positive relationships.</span>
-                            </div>
-                        </div>
-
-                        <div class="feature">
-                            <div class="feature-icon">✓</div>
-                            <div>
-                                <strong>School and Family Partnership</strong>
-                                <span>Connecting parents, guardians and teachers.</span>
+                                <strong>Success</strong>
+                                <span>Inspiring every pupil to achieve their full potential academically, morally and socially.</span>
                             </div>
                         </div>
 
                     </div>
 
                 </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- HEAD TEACHER -->
-
-    <section class="section section-light" id="leadership">
-
-        <div class="container">
-
-            <div class="section-heading">
-                <span class="eyebrow">School Leadership</span>
-                <h2>Meet Our Head Teacher</h2>
-                <p>Academic leadership, professional experience and commitment to education.</p>
-            </div>
-
-            <div class="leader-grid">
-
-                <article class="leader-card">
-
-                    <div class="leader-photo">
-                        <div>
-                            <div class="photo-placeholder">👤</div>
-                            <strong>Head Teacher</strong>
-                            <small>Replace with official photograph</small>
-                        </div>
-                    </div>
-
-                    <div class="leader-body">
-
-                        <h3>Head Teacher</h3>
-
-                        <div class="leader-role">
-                            School Leadership
-                        </div>
-
-                        <p style="text-align: justify">
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure
-                            dolor in reprehenderit in voluptate velit
-                            esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.
-                        </p>
-
-                    </div>
-
-                </article>
-
-                <article class="leader-card">
-
-                    <div class="leader-photo">
-                        <div>
-                            <div class="photo-placeholder">🎓</div>
-                            <strong>Professional Background</strong>
-                            <small>Academic qualifications and experience</small>
-                        </div>
-                    </div>
-
-                    <div class="leader-body">
-
-                        <h3>Academic and Professional Background</h3>
-
-                        <div class="leader-role">
-                            Education • Experience • Leadership
-                        </div>
-
-                        <p style="text-align: justify">
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure
-                            dolor in reprehenderit in voluptate velit
-                            esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.
-                        </p>
-
-                    </div>
-
-                </article>
 
             </div>
 
@@ -1465,33 +1527,25 @@
                 <h3>Our School Journey</h3>
 
                 <p style="text-align: justify">
-                    Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat.
+                    In 1984, under the leadership of Rev. Fr. Igba Visigh O.P. and a Board of Management, Fatima Nursery / Primary School, Gusau, was born in order to give quality education to all. Precisely, the registration of pupils into the new school started on Monday, 5th December 1983. <br> 
+                    On 17th January, 1984 the inaugural meeting of the Board of Management took place, and on Monday, 6th February, 1984 the doors of Maryamu Ta Fatima Nursery School opened to 26 pioneer pupils. After the first week the enrollment was 35 and has kept on rising ever since.   
                 </p>
 
                 <p style="text-align: justify">
-                    Duis aute irure dolor in reprehenderit
-                    in voluptate velit esse cillum dolore
-                    eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt
-                    in culpa qui officia deserunt mollit
-                    anim id est laborum.
-                </p>
-
+                    By coincidence, the first pupils were accommodated in the small bungalow next to the Rev. Fathers house on the Catholic Church premises in exactly the same classroom which housed the first Catholic School in Gusau in 1956 (28 years before) which is now Ibrahim Gusau Primary School. The historic classroom quickly became too small and the students were moved to the ultra modern Community Centre that was still being built.
+                </p> 
                 <p style="text-align: justify">
-                    Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat.
+                    In 1987 a new three classroom block was built on the Church premises as more space was needed to accommodate the growing population of the school. At the same time there were many frustrations in trying to find land for a permanent site and securing approval of the primary section. In 1988 the management of the school was turned over to the Dominican Sisters as Rev. Fr. Igba had other duties and was looking ahead to his possible transfer. During this year a second hand 32 seater bus was bought and the 1st speech and prize giving day was held. 1989 saw the 1st graduation ceremony for the nursery school.
                 </p>
-
-                <span class="history-note">
+                <p style="text-align: justify">
+                    After many meetings, inspections and trips to Sokoto the primary section finally received approval from the Ministry of Education in 1991. This approval was given on the condition that the school move off the Church premises to its permanent site within one year. Next began the struggles to obtain the necessary permissions to build on the land obtained. For the first time Primary 6 pupils received school leaving certificates and testimonials.
+                </p>
+                <p style="text-align: justify">
+                    In 1990 there were 19 classes in the school. The Community Centre and classroom block were overflowing. To ease the overcrowding, Nursery 1 and 2 classes were moved to the old maternity building along Kaura Namoda road on Dominican Sisters Compound. For the first time Primary 5 registered for the National Common Entrance Examination.
+                </p>
+                <!-- <span class="history-note">
                     Placeholder — replace with verified school history.
-                </span>
+                </span> -->
 
             </div>
 
@@ -1508,20 +1562,34 @@
             <div class="section-heading">
                 <span class="eyebrow">Educational Inspiration</span>
                 <h2>His Lordship Rev. Dr. Hassan Matthew Kukah</h2>
-                <p>Biography, educational journey and connection to the school.</p>
+                <p>Biography, educational journey.</p>
             </div>
 
             <div class="leader-grid">
 
                 <article class="leader-card">
 
+                    
+                    
                     <div class="leader-photo">
-                        <div>
-                            <div class="photo-placeholder">📖</div>
-                            <strong>Biography</strong>
-                            <small>Official photograph to be added</small>
-                        </div>
+                        <img
+                            src="{{ asset('images/kukah.jpeg') }}"
+                            alt="His Lordship Rev. Dr. Matthew Hassan Kukah"
+                            class="leader-image"
+                            loading="lazy"
+                        >
+
+                        <button
+                            class="gallery-image-button"
+                            type="button"
+                            data-lightbox
+                            data-src="{{ asset('images/kukah.jpeg') }}"
+                            data-caption="His Lordship Rev. Dr. Hassan Matthew Kukah"
+                            aria-label="View His Lordship's photograph enlarged"
+                        ></button>
                     </div>
+
+
 
                     <div class="leader-body">
 
@@ -1532,59 +1600,73 @@
                         </div>
 
                         <p style="text-align: justify">
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure
-                            dolor in reprehenderit in voluptate velit
-                            esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.
+                            Rev. Dr. Matthew Hassan Kukah, born August 31, 1952, in Kaduna State, is the Bishop of the Roman Catholic Diocese of Sokoto and a distinguished public intellectual who uniquely bridges religious and academic spheres. <br> Ordained a priest in 1976, his exceptional educational journey reflects deep scholastic commitment, starting from St. Augustine’s Major Seminary. <br> He holds a Bachelor of Divinity from Rome's Pontifical Urban University, a Master’s in Peace Studies from the University of Bradford, and a Ph.D. from SOAS, University of London. He also completed an MPA at Harvard University and served as a Senior Rhodes Fellow at the University of Oxford. His structural achievements include driving national unity through the National Peace Committee, serving on Nigeria's landmark Oputa Panel, and establishing The Kukah Centre to promote inter-religious dialogue and democratic governance.
+                        </p>
+                        <p style="text-align: justify">
+                            In recognition of his unwavering courage, ethical leadership, and peacebuilding, Rev. Dr. Hassan Matthew Kukah has received several elite accolades. He was conferred with the Prestigious National Honor of Commander of the Order of the Niger (CON) by the Nigerian Government. <br>Globally, his commitment to improving quality of life earned him the international Mundo Negro Fraternity Award in Spain. Furthermore, he has been honored with the Vanguard Personality of the Year – Lifetime Achievement Award and the Sun Courage in Leadership Award, while Pope Francis appointed him to the Vatican's Dicastery for Promoting Integral Human Development.
                         </p>
 
                     </div>
 
                 </article>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- HEAD TEACHER -->
+
+    <section class="section section-light" id="leadership">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">School Leadership</span>
+                <h2>Meet Our Head Teacher</h2>
+                <p>Academic leadership, professional experience and commitment to education.</p>
+            </div>
+
+            <div class="leader-grid">
 
                 <article class="leader-card">
-
+                    
                     <div class="leader-photo">
-                        <div>
-                            <div class="photo-placeholder">🌟</div>
-                            <strong>Connection to Our School</strong>
-                            <small>Verified connection to be added</small>
-                        </div>
+                        <img
+                            src="{{ asset('images/head-teacher.jpeg') }}"
+                            alt="Rev. Sr. Callista Nwakaego Agbokwor, O.P., Head Teacher of Fatima Nursery and Primary School, Gusau"
+                            class="leader-image"
+                            loading="lazy"
+                        >
+
+                        <button
+                            class="gallery-image-button"
+                            type="button"
+                            data-lightbox
+                            data-src="{{ asset('images/head-teacher.jpeg') }}"
+                            data-caption="Rev. Sr. Callista Nwakaego Agbokwor, O.P. — Head Teacher"
+                            aria-label="View Head Teacher photograph enlarged"
+                        ></button>
                     </div>
 
                     <div class="leader-body">
 
-                        <h3>His Connection to Our School</h3>
+                        <h3>Head Teacher</h3>
 
                         <div class="leader-role">
-                            School History and Legacy
+                            School Leadership
                         </div>
 
                         <p style="text-align: justify">
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure
-                            dolor in reprehenderit in voluptate velit
-                            esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.
+                            Rev. Sr. Callista Nwakaego Agbokwor, O.P. brings a robust and diverse academic background to her leadership role, anchored by a Nigeria Certificate in Education (N.C.E.) in Business Education with an Accounting option from the Federal College of Education, Pankshin, Plateau State, secured in 2006, alongside her earlier West African Examination Council (WAEC) qualification from St. Joseph Secondary School, Jos in 2008. Expanding her foundational expertise into specialized modern domains, she earned a Diploma in Spirituality and Religious Formation from the Dominican Institute, Ibadan in 2017, and has continuously upgraded her professional competencies through rigorous certifications at Godfrey Okoye University, Enugu State. These include specialized training in research ethics, student entrepreneurial skill projects, digital marketing skill acquisition programmes, and the Godfrey Okoye Computer Competence Programme (GCCP).
+                        </p>
+                        <p style="text-align: justify">
+                            Professionally, Sr. Callista has amassed extensive administrative, financial management, and leadership experience across multiple religious and educational institutions, having served as a receptionist at Sacred Hart Pastoral Centre, Jos, and holding critical bursarial positions at Fatima Nursery and Primary School in Gusau, Fr. Matthias Health Care Unit in Naka, and as Bursar General for the Dominican Sisters of St. Catherine of Siena in Gusau. Her leadership footprint also includes her tenure as Acting Head Teacher at St. Dominic Salama Nursery and Primary School in Yelwa-Yauri, Kebbi State, complemented by professional development workshops spanning strategic planning, project proposal writing, fundraising, and peacebuilding. Building upon this solid administrative foundation, she has spearheaded special projects to digitalize the school, integrating modern technology and bringing the best of academic and digital knowledge directly to the pupils.
                         </p>
 
                     </div>
 
                 </article>
-
             </div>
 
         </div>
@@ -1608,7 +1690,12 @@
                 <article class="facility-card">
                     <div class="facility-image">
                         <img src="{{ asset('images/school_vicinity.jpeg') }}"
-                             alt="School vicinity">
+                            alt="School vicinity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/school_vicinity.jpeg') }}"
+                                data-caption="Fatima Nursery and Primary School — School Environment"
+                                aria-label="View school environment image enlarged"></button>
                     </div>
                     <h3>School Environment</h3>
                 </article>
@@ -1616,7 +1703,12 @@
                 <article class="facility-card">
                     <div class="facility-image">
                         <img src="{{ asset('images/cultural1.jpeg') }}"
-                             alt="School cultural activity">
+                            alt="School cultural activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural1.jpeg') }}"
+                                data-caption="Cultural Activities"
+                                aria-label="View cultural activity image enlarged"></button>
                     </div>
                     <h3>Cultural Activities</h3>
                 </article>
@@ -1624,7 +1716,12 @@
                 <article class="facility-card">
                     <div class="facility-image">
                         <img src="{{ asset('images/sport1.jpeg') }}"
-                             alt="School sports activity">
+                            alt="School sports activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/sport1.jpeg') }}"
+                                data-caption="Sports and Physical Activities"
+                                aria-label="View sports image enlarged"></button>
                     </div>
                     <h3>Sports and Physical Activities</h3>
                 </article>
@@ -1632,7 +1729,12 @@
                 <article class="facility-card">
                     <div class="facility-image">
                         <img src="{{ asset('images/airport_excursion2.jpeg') }}"
-                             alt="Airport excursion">
+                            alt="Airport excursion">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/airport_excursion2.jpeg') }}"
+                                data-caption="Educational Excursions"
+                                aria-label="View educational excursion image enlarged"></button>
                     </div>
                     <h3>Educational Excursions</h3>
                 </article>
@@ -1640,7 +1742,12 @@
                 <article class="facility-card">
                     <div class="facility-image">
                         <img src="{{ asset('images/cultural4.jpeg') }}"
-                             alt="School event">
+                            alt="School event">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural4.jpeg') }}"
+                                data-caption="School Celebrations"
+                                aria-label="View school celebration image enlarged"></button>
                     </div>
                     <h3>School Celebrations</h3>
                 </article>
@@ -1648,7 +1755,12 @@
                 <article class="facility-card">
                     <div class="facility-image">
                         <img src="{{ asset('images/cultural6.jpeg') }}"
-                             alt="School pupils participating in an activity">
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural6.jpeg') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
                     </div>
                     <h3>School Community</h3>
                 </article>
@@ -1991,91 +2103,85 @@
                 </article>
 
                 <!-- VIDEOS -->
-
+                <!-- VIDEO 1: CULTURAL DAY -->
                 <article class="gallery-item" data-gallery-type="videos" hidden>
-
                     <div class="gallery-media">
-
                         <video controls preload="metadata"
-                               playsinline
-                               aria-label="Cultural day video">
-                            <source src="{{ asset('videos/cultural7.mp4') }}"
-                                    type="video/mp4">
+                            playsinline
+                            aria-label="Cultural day video">
+                            <source src="{{ asset('videos/cultural7.mp4') }}" type="video/mp4">
                             Your browser does not support video playback.
                         </video>
-
                     </div>
-
                     <div class="gallery-caption">
                         <h3>Cultural Day</h3>
                         <p>School cultural activities.</p>
                     </div>
-
                 </article>
 
+                <!-- VIDEO 2: GRADUATION DAY -->
                 <article class="gallery-item" data-gallery-type="videos" hidden>
-
                     <div class="gallery-media">
-
                         <video controls preload="metadata"
-                               playsinline
-                               aria-label="Cultural activities video">
-                            <source src="{{ asset('videos/cultural_video.mp4') }}"
-                                    type="video/mp4">
+                            playsinline
+                            aria-label="Head Boy and Head Girl speech">
+                            <source src="{{ asset('videos/headboy_and_headgirl_speech.mp4') }}" type="video/mp4">
                             Your browser does not support video playback.
                         </video>
-
                     </div>
+                    <div class="gallery-caption">
+                        <h3>Graduation Day</h3>
+                        <p>Head Boy and Head Girl's Speech.</p>
+                    </div>
+                </article>
 
+                <!-- VIDEO 3: CULTURAL ACTIVITIES -->
+                <article class="gallery-item" data-gallery-type="videos" hidden>
+                    <div class="gallery-media">
+                        <video controls preload="metadata"
+                            playsinline
+                            aria-label="Cultural activities video">
+                            <source src="{{ asset('videos/cultural_video.mp4') }}" type="video/mp4">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
                     <div class="gallery-caption">
                         <h3>Cultural Activities</h3>
                         <p>School celebrations and performances.</p>
                     </div>
-
                 </article>
 
+                <!-- VIDEO 4: AIRPORT EXCURSION -->
                 <article class="gallery-item" data-gallery-type="videos" hidden>
-
                     <div class="gallery-media">
-
                         <video controls preload="metadata"
-                               playsinline
-                               aria-label="Airport excursion video">
-                            <source src="{{ asset('videos/airport_excursion.mp4') }}"
-                                    type="video/mp4">
+                            playsinline
+                            aria-label="Airport excursion video">
+                            <source src="{{ asset('videos/airport_excursion.mp4') }}" type="video/mp4">
                             Your browser does not support video playback.
                         </video>
-
                     </div>
-
                     <div class="gallery-caption">
                         <h3>Airport Excursion</h3>
                         <p>Educational visit.</p>
                     </div>
-
                 </article>
 
+                <!-- VIDEO 5: EXTRA-CURRICULAR ACTIVITIES -->
                 <article class="gallery-item" data-gallery-type="videos" hidden>
-
                     <div class="gallery-media">
-
                         <video controls preload="metadata"
-                               playsinline
-                               aria-label="Airport excursion video two">
-                            <source src="{{ asset('videos/airport_excursion_video.mp4') }}"
-                                    type="video/mp4">
+                            playsinline
+                            aria-label="Excursion to Gusau International Airport">
+                            <source src="{{ asset('videos/enter_plane.mp4') }}" type="video/mp4">
                             Your browser does not support video playback.
                         </video>
-
                     </div>
-
                     <div class="gallery-caption">
-                        <h3>Airport Excursion</h3>
-                        <p>School trip memories.</p>
+                        <h3>Extra-curricular Activities</h3>
+                        <p>Excursion to Gusau International Airport.</p>
                     </div>
-
                 </article>
-
             </div>
 
         </div>
@@ -2380,6 +2486,7 @@ document.addEventListener('DOMContentLoaded', function () {
     showHeroSlide(0);
     startHeroSlideshow();
 
+
     /* GALLERY FILTER */
 
     const galleryButtons = document.querySelectorAll('[data-gallery-filter]');
@@ -2392,6 +2499,47 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    /* VIDEO PLAYBACK CONTROL */
+
+    // Get all videos in the gallery
+    const galleryVideos = document.querySelectorAll(
+        '.gallery-item[data-gallery-type="videos"] video'
+    );
+
+    // Automatically pause other videos when one starts playing
+    galleryVideos.forEach(function (currentVideo) {
+
+        currentVideo.addEventListener('play', function () {
+
+            galleryVideos.forEach(function (otherVideo) {
+
+                if (otherVideo !== currentVideo) {
+                    otherVideo.pause();
+                }
+
+            });
+
+        });
+
+    });
+
+    // Pause all videos when the viewer switches to another gallery category
+    galleryButtons.forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            if (button.dataset.galleryFilter !== 'videos') {
+
+                galleryVideos.forEach(function (video) {
+                    video.pause();
+                });
+
+            }
+
+        });
+
+    });
 
     galleryButtons.forEach(function (button) {
 
@@ -2423,6 +2571,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     });
+
 
     /* IMAGE LIGHTBOX */
 
@@ -2503,6 +2652,74 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+
+    /* FLOATING TOP / BOTTOM NAVIGATION */
+
+    const pageScrollButton = document.getElementById('pageScrollButton');
+
+    function updatePageScrollButton() {
+
+        const scrollPosition = window.scrollY;
+
+        const maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        // Determine whether the viewer is in the upper or lower half
+        const isTowardsTop = scrollPosition < maxScroll / 2;
+
+        if (isTowardsTop) {
+
+            pageScrollButton.textContent = '↓';
+            pageScrollButton.setAttribute('aria-label', 'Scroll to bottom');
+            pageScrollButton.setAttribute('title', 'Scroll to bottom');
+
+        } else {
+
+            pageScrollButton.textContent = '↑';
+            pageScrollButton.setAttribute('aria-label', 'Scroll to top');
+            pageScrollButton.setAttribute('title', 'Scroll to top');
+
+        }
+    }
+
+    // Update the arrow as the viewer scrolls
+    window.addEventListener('scroll', updatePageScrollButton);
+
+    // Also update when the browser window changes size
+    window.addEventListener('resize', updatePageScrollButton);
+
+    // Perform the appropriate scrolling action when clicked
+    pageScrollButton.addEventListener('click', function () {
+
+        const scrollPosition = window.scrollY;
+
+        const maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        if (scrollPosition < maxScroll / 2) {
+
+            // Move to the bottom
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+
+        } else {
+
+            // Move to the top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+        }
+
+    });
+
+    // Set the correct initial arrow
+    updatePageScrollButton();
+
+
     /* FOOTER YEAR */
 
     document.getElementById('currentYear').textContent =
@@ -2510,6 +2727,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 </script>
+
+    <!-- FLOATING PAGE NAVIGATION BUTTON -->
+
+    <button
+        type="button"
+        id="pageScrollButton"
+        class="page-scroll-button"
+        aria-label="Scroll to bottom"
+        title="Scroll to bottom"
+    >
+        ↓
+    </button>
+
 
 </body>
 </html>
