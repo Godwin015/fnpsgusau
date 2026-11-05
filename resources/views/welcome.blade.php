@@ -1765,6 +1765,127 @@
                     <h3>School Community</h3>
                 </article>
 
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img1.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img1.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img2.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img2.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img3.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img3.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img4.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img4.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img5.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img5.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img6.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img6.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img7.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img7.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img8.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img8.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img9.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img9.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img10.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img10.webp') }}"
+                                data-caption="School Community"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>School Community</h3>
+                </article>
+
             </div>
 
         </div>
