@@ -6,7 +6,7 @@
 
     <title>Fatima Nursery and Primary School, Gusau</title>
 
-    <meta name="description" content="Fatima Nursery and Primary School, Gusau. Learning, character and excellence.">
+    <meta name="description" content="Fatima Nursery and Primary School, Gusau. Diligence and Success.">
 
     <meta name="theme-color" content="#073b82">
 
@@ -34,6 +34,8 @@
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 90px;
+            max-width: 100%;
+            overflow-x: clip;
         }
 
         body {
@@ -41,6 +43,7 @@
             color: var(--text);
             line-height: 1.7;
             background: white;
+            max-width: 100%;
         }
 
         body.menu-open,
@@ -449,7 +452,16 @@
 
         .about-grid {
             display: grid;
+            grid-template-columns: minmax(0, 1fr);
             gap: 28px;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .about-visual,
+        .about-copy {
+            width: 100%;
+            min-width: 0;
         }
 
         .about-visual {
@@ -1054,11 +1066,6 @@
         /* RESPONSIVE */
 
         @media (min-width: 600px) {
-            .about-grid {
-                grid-template-columns: 1fr 1.2fr;
-                align-items: center;
-            }
-
             .leader-grid {
                 grid-template-columns: minmax(0, 850px);
                 justify-content:center;
@@ -1083,6 +1090,13 @@
             .footer-bottom {
                 flex-direction: row;
                 justify-content: space-between;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .about-grid {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+                align-items: center;
             }
         }
 
@@ -1221,18 +1235,18 @@
     outline-offset: 4px;
 }
 
-@media (max-width: 600px) {
-    .page-scroll-button {
-        width: 46px;
-        height: 46px;
-        right: 16px;
-        bottom: 18px;
-        font-size: 24px;
+    @media (max-width: 600px) {
+        .page-scroll-button {
+            position: fixed;
+            width: 46px;
+            height: 46px;
+            right: max(16px, env(safe-area-inset-right));
+            bottom: max(18px, env(safe-area-inset-bottom));
+            left: auto;
+            z-index: 9999;
+            font-size: 24px;
+        }
     }
-}
-
-
-
     </style>
 </head>
 
