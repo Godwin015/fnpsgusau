@@ -1543,6 +1543,9 @@
                 <p style="text-align: justify">
                     In 1990 there were 19 classes in the school. The Community Centre and classroom block were overflowing. To ease the overcrowding, Nursery 1 and 2 classes were moved to the old maternity building along Kaura Namoda road on Dominican Sisters Compound. For the first time Primary 5 registered for the National Common Entrance Examination.
                 </p>
+                <p style="text-align: justify;">
+                    For more than 30 years, the school has sustained its tradition of producing brilliant and exceptionally well-mannered pupils. Today, our graduates are highly respected leaders and individuals across the country, carrying forward the legacy of quality education born in 1984.
+                </p>
                 <!-- <span class="history-note">
                     Placeholder — replace with verified school history.
                 </span> -->
