@@ -1,0 +1,2812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Fatima Nursery and Primary School, Gusau</title>
+
+    <meta name="description" content="Fatima Nursery and Primary School, Gusau. Learning, character and excellence.">
+
+    <meta name="theme-color" content="#073b82">
+
+    <style>
+        :root {
+            --blue: #073b82;
+            --blue-dark: #05285a;
+            --blue-light: #eaf2ff;
+            --gold: #f5bd45;
+            --white: #fff;
+            --text: #17243b;
+            --muted: #64748b;
+            --light: #f5f8fd;
+            --border: #e3eaf4;
+            --shadow: 0 15px 45px rgba(7,59,130,.12);
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            background: white;
+        }
+
+        body.menu-open,
+        body.lightbox-open {
+            overflow: hidden;
+        }
+
+        img, video {
+            max-width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .container {
+            width: min(1160px, calc(100% - 32px));
+            margin: auto;
+        }
+
+        .section {
+            padding: 75px 0;
+        }
+
+        .section-light {
+            background: var(--light);
+        }
+
+        .section-heading {
+            max-width: 720px;
+            text-align: center;
+            margin: 0 auto 40px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 15px;
+            border-radius: 30px;
+            color: var(--blue);
+            background: var(--blue-light);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .section-heading h2 {
+            color: var(--blue-dark);
+            font-size: clamp(27px, 4vw, 43px);
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border: 0;
+            border-radius: 50px;
+            padding: 12px 21px;
+            font-size: 13px;
+            font-weight: 800;
+            transition: .25s;
+        }
+
+        .btn-primary {
+            color: white;
+            background: var(--blue);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            color: var(--blue-dark);
+            background: var(--gold);
+        }
+
+        .btn-outline {
+            color: var(--blue);
+            border: 1px solid var(--blue);
+            background: transparent;
+        }
+
+        /* HEADER */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            min-height: 88px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .brand-logo {
+            width: clamp(43px, 10vw, 64px);
+            height: clamp(43px, 10vw, 64px);
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            min-width: 0;
+        }
+
+        .brand-text strong {
+            display: block;
+            color: var(--blue);
+            font-size: clamp(13px, 2.5vw, 19px);
+            line-height: 1.25;
+        }
+
+        .brand-text span {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.4;
+            margin-top: 3px;
+        }
+
+        .desktop-nav {
+            display: none;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .desktop-nav a {
+            color: #34445e;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .desktop-nav a:hover {
+            color: var(--blue);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-login {
+            display: none;
+        }
+
+        .menu-button {
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: white;
+            color: var(--blue);
+            font-size: 24px;
+        }
+
+        /* MOBILE DRAWER */
+
+        .drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            background: rgba(3,20,48,.58);
+            visibility: hidden;
+            opacity: 0;
+            transition: .25s;
+        }
+
+        .drawer {
+            position: fixed;
+            z-index: 1200;
+            top: 0;
+            right: 0;
+            width: min(350px, 88%);
+            height: 100%;
+            overflow-y: auto;
+            padding: 23px;
+            background: white;
+            box-shadow: var(--shadow);
+            transform: translateX(100%);
+            transition: transform .3s;
+        }
+
+        body.menu-open .drawer-backdrop {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        body.menu-open .drawer {
+            transform: translateX(0);
+        }
+
+        .drawer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .drawer-top strong {
+            color: var(--blue);
+            font-size: 17px;
+        }
+
+        .drawer-close {
+            width: 42px;
+            height: 42px;
+            border: 0;
+            border-radius: 12px;
+            color: var(--blue);
+            background: var(--blue-light);
+            font-size: 25px;
+        }
+
+        .drawer-links {
+            display: grid;
+            gap: 5px;
+        }
+
+        .drawer-links a {
+            padding: 12px;
+            border-radius: 12px;
+            color: #34445e;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .drawer-links a:hover {
+            background: var(--blue-light);
+            color: var(--blue);
+        }
+
+        .drawer-login {
+            display: grid;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        /* HERO SLIDESHOW */
+
+        .hero {
+            position: relative;
+            min-height: 610px;
+            overflow: hidden;
+            background: var(--blue-dark);
+            color: white;
+            isolation: isolate;
+        }
+
+        .hero-slides {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            animation: heroZoom 8s ease-out both;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                linear-gradient(90deg,
+                    rgba(3,25,61,.92) 0%,
+                    rgba(4,43,95,.78) 55%,
+                    rgba(4,43,95,.40) 100%),
+                linear-gradient(0deg,
+                    rgba(3,25,61,.48),
+                    transparent 65%);
+        }
+
+        @keyframes heroZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.10); }
+        }
+
+        .hero-inner {
+            min-height: 610px;
+            display: flex;
+            align-items: center;
+            padding-top: 65px;
+            padding-bottom: 85px;
+        }
+
+        .hero-content {
+            max-width: 780px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,.28);
+            border-radius: 40px;
+            background: rgba(255,255,255,.12);
+            padding: 8px 14px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(35px, 7vw, 68px);
+            line-height: 1.08;
+            letter-spacing: -1.7px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero-content > p {
+            max-width: 620px;
+            color: rgba(255,255,255,.88);
+            font-size: 15px;
+            margin-bottom: 27px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero .btn-outline {
+            color: white;
+            border-color: rgba(255,255,255,.65);
+        }
+
+        .hero-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 9px;
+            z-index: 3;
+        }
+
+        .hero-dot {
+            width: 10px;
+            height: 10px;
+            padding: 0;
+            border: 1px solid white;
+            border-radius: 50%;
+            background: transparent;
+        }
+
+        .hero-dot.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            transform: scale(1.2);
+        }
+
+        /* ABOUT */
+
+        .about-grid {
+            display: grid;
+            gap: 28px;
+        }
+
+        .about-visual {
+            min-height: 300px;
+            border-radius: var(--radius);
+            display: grid;
+            place-items: center;
+            padding: 30px;
+            color: white;
+            text-align: center;
+            background: linear-gradient(135deg, #05285a, #1265bd);
+        }
+
+        .about-visual img {
+            width: 350px;
+            height: 350px;
+            object-fit: contain;
+            background: white;
+            border-radius: 20px;
+            padding: 9px;
+            margin: 0 auto 17px;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            width: 350px;
+            max-width: 100%;
+            margin: 0 auto 17px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .about-image-wrapper img {
+            display: block;
+            width: 100%;
+            margin: 0;
+            cursor: zoom-in;
+        }
+
+        .about-image-wrapper .gallery-image-button {
+            z-index: 3;
+        }
+
+        .about-image-wrapper:hover .gallery-image-button::after {
+            opacity: 1;
+        }
+
+        .about-visual h3 {
+            font-size: 23px;
+            margin-bottom: 8px;
+        }
+
+        .about-copy h3 {
+            color: var(--blue-dark);
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .about-copy p {
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            display: grid;
+            gap: 13px;
+            margin-top: 22px;
+        }
+
+        .feature {
+            display: flex;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            width: 35px;
+            height: 35px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            color: var(--blue);
+            background: var(--blue-light);
+            font-weight: 900;
+        }
+
+        .feature strong {
+            display: block;
+            color: var(--blue-dark);
+            font-size: 14px;
+        }
+
+        .feature span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* LEADERSHIP / HISTORY */
+
+        .leader-grid {
+            display: grid;
+            gap-template-columns: 1fr;
+            justify-items:center;
+            gap: 22px;
+        }
+
+        .leader-card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .leader-photo {
+            min-height: 220px;
+            display: grid;
+            place-items: center;
+            padding: 25px;
+            text-align: center;
+            color: var(--blue);
+            background: linear-gradient(135deg,#dce9fb,#f1f6ff);
+        }
+
+
+/* His Lordship Rev. Dr. Matthew Hassan Kukah photograph */
+
+.leader-photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.leader-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    max-height: 420px;
+
+    object-fit: contain;
+    object-position: center top;
+
+    border-radius: 18px;
+
+    transition: transform 0.4s ease;
+}
+
+.leader-photo:hover .leader-image {
+    transform: scale(1.03);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .leader-image {
+        min-height: 250px;
+        max-height: 350px;
+    }
+}
+
+
+        .leader-photo .photo-placeholder {
+            width: 95px;
+            height: 95px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 12px;
+            border: 3px solid white;
+            border-radius: 50%;
+            background: rgba(7,59,130,.10);
+            font-size: 36px;
+        }
+
+        .leader-photo small {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .leader-body {
+            padding: 24px;
+        }
+
+        .leader-body h3 {
+            color: var(--blue-dark);
+            font-size: 21px;
+            margin-bottom: 6px;
+        }
+
+        .leader-role {
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .leader-body p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .history-box {
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .history-box h3 {
+            color: var(--blue-dark);
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .history-box p {
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .history-note {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: #855b00;
+            background: #fff6df;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        /* FACILITIES */
+
+        .facility-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .facility-card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: white;
+            transition: .25s;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .facility-image {
+            position: relative;
+            height: 190px;
+            overflow: hidden;
+            background: var(--blue-light);
+        }
+
+        .facility-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .facility-card h3 {
+            padding: 16px 18px 19px;
+            color: var(--blue-dark);
+            font-size: 16px;
+        }
+
+        /* GALLERY */
+
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .gallery-tab {
+            padding: 11px 23px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background: white;
+            color: var(--blue);
+            font-weight: 800;
+        }
+
+        .gallery-tab.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            background: white;
+            box-shadow: 0 8px 25px rgba(7,59,130,.06);
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 38px rgba(7,59,130,.20);
+        }
+
+        .gallery-item[hidden] {
+            display: none !important;
+        }
+
+        .gallery-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            background: #e8effb;
+        }
+
+        .gallery-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            background: rgba(7,59,130,.38);
+            box-shadow: inset 0 0 0 4px rgba(36,113,255,.65);
+            transition: opacity .3s;
+        }
+
+        .gallery-item:hover .gallery-media::after {
+            opacity: 1;
+        }
+
+        .gallery-media img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            background: #e8effb;
+            transition: transform .45s ease;
+        }
+
+        .gallery-item:hover .gallery-media img {
+            transform: scale(1.06);
+        }
+
+        .gallery-image-button {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: zoom-in;
+        }
+
+        .gallery-image-button:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: -4px;
+        }
+
+        .gallery-image-button::after {
+            content: "⌕ View image";
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            padding: 6px 11px;
+            border-radius: 30px;
+            color: white;
+            background: rgba(5,40,90,.85);
+            font-size: 11px;
+            font-weight: 800;
+            opacity: 0;
+            transition: opacity .25s;
+        }
+
+        .gallery-item:hover .gallery-image-button::after {
+            opacity: 1;
+        }
+
+        /* Show view-image label on leadership photographs */
+
+        .leader-photo:hover .gallery-image-button::after {
+            opacity: 1;
+        }
+
+        .gallery-media video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            background: #071d3c;
+        }
+
+        .gallery-caption {
+            padding: 16px 18px;
+        }
+
+        .gallery-caption h3 {
+            color: var(--blue-dark);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .gallery-caption p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* IMAGE LIGHTBOX */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(1,12,31,.94);
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            position: relative;
+            width: min(1100px, 100%);
+            height: min(85vh, 850px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 70px rgba(0,0,0,.45);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -12px;
+            right: -5px;
+            z-index: 2;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            color: white;
+            background: rgba(7,59,130,.85);
+            font-size: 27px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -35px;
+            left: 0;
+            right: 0;
+            color: white;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* LOGIN */
+
+        .login-section {
+            color: white;
+            background: linear-gradient(135deg,#05285a,#073b82);
+        }
+
+        .login-section .section-heading h2 {
+            color: white;
+        }
+
+        .login-section .section-heading p {
+            color: rgba(255,255,255,.76);
+        }
+
+        .login-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .login-card {
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: var(--radius);
+            background: rgba(255,255,255,.09);
+        }
+
+        .login-icon {
+            width: 55px;
+            height: 55px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: rgba(255,255,255,.13);
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .login-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .login-card p {
+            color: rgba(255,255,255,.76);
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            padding: 50px 0 23px;
+            color: white;
+            background: #031b3d;
+        }
+
+        .footer-grid {
+            display: grid;
+            gap: 28px;
+            margin-bottom: 32px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: white;
+            padding: 5px;
+        }
+
+        .footer-brand strong {
+            font-size: 15px;
+        }
+
+        .footer p {
+            color: rgba(255,255,255,.68);
+            font-size: 12px;
+        }
+
+        .footer h3 {
+            font-size: 15px;
+            margin-bottom: 13px;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 9px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,.72);
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid rgba(255,255,255,.13);
+            padding-top: 20px;
+        }
+
+        .footer-bottom p {
+            font-size: 11px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (min-width: 600px) {
+            .about-grid {
+                grid-template-columns: 1fr 1.2fr;
+                align-items: center;
+            }
+
+            .leader-grid {
+                grid-template-columns: minmax(0, 850px);
+                justify-content:center;
+            }
+
+            .facility-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .login-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1.5fr 1fr 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        @media (min-width: 1050px) {
+            .desktop-nav {
+                display: flex;
+            }
+
+            .header-login {
+                display: inline-flex;
+            }
+
+            .menu-button {
+                display: none;
+            }
+
+            .hero-inner {
+                min-height: 650px;
+            }
+
+            .hero {
+                min-height: 650px;
+            }
+
+            .facility-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section {
+                padding: 95px 0;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .brand-text strong {
+                font-size: 12px;
+            }
+
+            .brand-text span {
+                font-size: 9px;
+            }
+
+            .brand {
+                gap: 7px;
+            }
+
+            .brand-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
+
+.gallery-media video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    background: #000;
+    border-radius: 12px;
+}
+
+/* Keep video controls accessible on smaller screens */
+.gallery-media {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    border-radius: 12px;
+}
+
+.gallery-media video:focus-visible {
+    outline: 3px solid #f5bd45;
+    outline-offset: 3px;
+}
+
+
+/* FLOATING TOP / BOTTOM NAVIGATION BUTTON */
+
+.page-scroll-button {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 1500;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid rgba(255,255,255,.8);
+    border-radius: 50%;
+
+    color: white;
+    background: var(--blue);
+
+    font-size: 27px;
+    font-weight: bold;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
+
+    cursor: pointer;
+    transition: background .25s, transform .25s, box-shadow .25s;
+}
+
+.page-scroll-button:hover {
+    background: var(--blue-dark);
+    transform: translateY(-4px);
+    box-shadow: 0 9px 25px rgba(0,0,0,.3);
+}
+
+.page-scroll-button:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+    .page-scroll-button {
+        width: 46px;
+        height: 46px;
+        right: 16px;
+        bottom: 18px;
+        font-size: 24px;
+    }
+}
+
+
+
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+
+        <a href="#home" class="brand">
+
+            <img class="brand-logo"
+                 src="{{ asset('images/school-logo.jpeg') }}"
+                 alt="Fatima Nursery and Primary School logo">
+
+            <div class="brand-text">
+                <strong>Fatima Nursery and Primary School, Gusau</strong>
+                <span>Diligence & Success</span>
+            </div>
+
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#leadership">Head Teacher</a>
+            <a href="#history">History</a>
+            <a href="#facilities">Facilities</a>
+            <a href="#gallery">Gallery</a>
+        </nav>
+
+        <div class="header-actions">
+
+            <a href="{{ route('parent.login') }}"
+               class="btn btn-primary header-login">
+                Parent Login
+            </a>
+
+            <button id="menuButton"
+                    class="menu-button"
+                    type="button"
+                    aria-label="Open navigation menu"
+                    aria-expanded="false"
+                    aria-controls="mobileDrawer">
+                ☰
+            </button>
+
+        </div>
+
+    </div>
+</header>
+
+<!-- MOBILE DRAWER -->
+
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+<aside class="drawer"
+      id="mobileDrawer"
+      aria-hidden="true"
+      aria-label="Mobile navigation">
+
+    <div class="drawer-top">
+
+        <strong>Fatima Nursery and Primary School</strong>
+
+        <button id="drawerClose"
+                class="drawer-close"
+                type="button"
+                aria-label="Close menu">
+            ×
+        </button>
+
+    </div>
+
+    <nav class="drawer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About Our School</a>
+        <a href="#leadership">Head Teacher</a>
+        <a href="#history">School History</a>
+        <a href="#kukah">Rev. Dr. Hassan Matthew Kukah</a>
+        <a href="#facilities">Facilities</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#portal">Parent and Staff Portal</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="drawer-login">
+
+        <a href="{{ route('parent.login') }}"
+           class="btn btn-primary">
+            Parent / Guardian Login
+        </a>
+
+        <a href="{{ route('staff.login') }}"
+           class="btn btn-outline">
+            Staff Login
+        </a>
+
+    </div>
+
+</aside>
+
+<main>
+
+    <!-- HERO WITH AUTOMATIC BACKGROUND SLIDESHOW -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-slides" aria-hidden="true">
+
+            <div class="hero-slide active">
+                <img src="{{ asset('images/school_vicinity.jpeg') }}"
+                     alt="">
+            </div>
+
+            <div class="hero-slide">
+                <img src="{{ asset('images/school_vicinity2.jpeg') }}"
+                     alt="">
+            </div>
+
+            <div class="hero-slide">
+                <img src="{{ asset('images/school_vicinity3.jpeg') }}"
+                     alt="">
+            </div>
+
+        </div>
+
+        <div class="container hero-inner">
+
+            <div class="hero-content">
+
+                <div class="hero-label">
+                    ✦ Welcome to Fatima Nursery and Primary School, Gusau
+                </div>
+
+                <h1>
+                    Fatima Nursery and<br>
+                    <span>Primary School, Gusau</span>
+                </h1>
+
+                <p>
+                    A school community committed to learning,
+                    character development, discovery and helping
+                    every child grow into their potential.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#about" class="btn btn-gold">
+                        Discover Our School →
+                    </a>
+
+                    <a href="#gallery" class="btn btn-outline">
+                        Explore Gallery
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hero-dots" aria-label="Hero slideshow controls">
+
+            <button class="hero-dot active"
+                    type="button"
+                    data-slide="0"
+                    aria-label="Show school vicinity image 1"></button>
+
+            <button class="hero-dot"
+                    type="button"
+                    data-slide="1"
+                    aria-label="Show school vicinity image 2"></button>
+
+            <button class="hero-dot"
+                    type="button"
+                    data-slide="2"
+                    aria-label="Show school vicinity image 3"></button>
+
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+
+    <section class="section" id="about">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">About Our School</span>
+
+                <h2>A Community of Learning and Growth</h2>
+
+                <p>
+                    Discover our school, our values and our
+                    commitment to nurturing young learners.
+                </p>
+            </div>
+
+            <div class="about-grid">
+
+                <div class="about-visual">
+
+                    <div class="about-image-wrapper">
+
+                        <img src="{{ asset('images/school_vicinity2.jpeg') }}"
+                            alt="Fatima Nursery and Primary School, Gusau">
+
+                        <button
+                            class="gallery-image-button"
+                            type="button"
+                            data-lightbox
+                            data-src="{{ asset('images/school_vicinity2.jpeg') }}"
+                            data-caption="Fatima Nursery and Primary School, Gusau — Diligence & Success"
+                            aria-label="View Fatima Nursery and Primary School photograph enlarged"
+                        ></button>
+
+                    </div>
+
+                    <h3>Fatima Nursery and Primary School, Gusau</h3>
+
+                    <p>
+                        Diligence & Success
+                    </p>
+
+                </div>
+
+                <div class="about-copy">
+
+                    <h3>Education with Purpose</h3>
+
+                    <p style="text-align: justify">
+                        At Fatima Nursery and Primary School, Gusau,
+                        we believe education should help children
+                        develop academically, socially and personally.
+                        Our school community seeks to provide an
+                        environment where pupils can learn, ask
+                        questions, build confidence and discover
+                        their abilities.
+                    </p>
+
+                    <p style="text-align: justify">
+                        Through classroom learning, school activities
+                        and partnership between teachers, parents
+                        and guardians, we aim to support the
+                        development of responsible, curious
+                        and confident learners.
+                    </p>
+
+                    <div class="feature-list">
+
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+                            <div>
+                                <strong>Diligence</strong>
+                                <span>Promoting hard work, discipline, dedication and a commitment to excellence in learning.</span>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div class="feature-icon">✓</div>
+                            <div>
+                                <strong>Success</strong>
+                                <span>Inspiring every pupil to achieve their full potential academically, morally and socially.</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SCHOOL HISTORY -->
+
+    <section class="section" id="history">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">Our Story</span>
+                <h2>The History of Our School</h2>
+                <p>Discover the school's beginnings and educational journey.</p>
+            </div>
+
+            <div class="history-box">
+
+                <h3>Our School Journey</h3>
+
+                <p style="text-align: justify">
+                    In 1984, under the leadership of Rev. Fr. Igba Visigh O.P. and a Board of Management, Fatima Nursery / Primary School, Gusau, was born in order to give quality education to all. Precisely, the registration of pupils into the new school started on Monday, 5th December 1983. <br> 
+                    On 17th January, 1984 the inaugural meeting of the Board of Management took place, and on Monday, 6th February, 1984 the doors of Maryamu Ta Fatima Nursery School opened to 26 pioneer pupils. After the first week the enrollment was 35 and has kept on rising ever since.   
+                </p>
+
+                <p style="text-align: justify">
+                    By coincidence, the first pupils were accommodated in the small bungalow next to the Rev. Fathers house on the Catholic Church premises in exactly the same classroom which housed the first Catholic School in Gusau in 1956 (28 years before) which is now Ibrahim Gusau Primary School. The historic classroom quickly became too small and the students were moved to the ultra modern Community Centre that was still being built.
+                </p> 
+                <p style="text-align: justify">
+                    In 1987 a new three classroom block was built on the Church premises as more space was needed to accommodate the growing population of the school. At the same time there were many frustrations in trying to find land for a permanent site and securing approval of the primary section. In 1988 the management of the school was turned over to the Dominican Sisters as Rev. Fr. Igba had other duties and was looking ahead to his possible transfer. During this year a second hand 32 seater bus was bought and the 1st speech and prize giving day was held. 1989 saw the 1st graduation ceremony for the nursery school.
+                </p>
+                <p style="text-align: justify">
+                    After many meetings, inspections and trips to Sokoto the primary section finally received approval from the Ministry of Education in 1991. This approval was given on the condition that the school move off the Church premises to its permanent site within one year. Next began the struggles to obtain the necessary permissions to build on the land obtained. For the first time Primary 6 pupils received school leaving certificates and testimonials.
+                </p>
+                <p style="text-align: justify">
+                    In 1990 there were 19 classes in the school. The Community Centre and classroom block were overflowing. To ease the overcrowding, Nursery 1 and 2 classes were moved to the old maternity building along Kaura Namoda road on Dominican Sisters Compound. For the first time Primary 5 registered for the National Common Entrance Examination.
+                </p>
+                <!-- <span class="history-note">
+                    Placeholder — replace with verified school history.
+                </span> -->
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- KUKAH -->
+
+    <section class="section section-light" id="kukah">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">Educational Inspiration</span>
+                <h2>His Lordship Rev. Dr. Hassan Matthew Kukah</h2>
+                <p>Biography, educational journey.</p>
+            </div>
+
+            <div class="leader-grid">
+
+                <article class="leader-card">
+
+                    
+                    
+                    <div class="leader-photo">
+                        <img
+                            src="{{ asset('images/kukah.jpeg') }}"
+                            alt="His Lordship Rev. Dr. Matthew Hassan Kukah"
+                            class="leader-image"
+                            loading="lazy"
+                        >
+
+                        <button
+                            class="gallery-image-button"
+                            type="button"
+                            data-lightbox
+                            data-src="{{ asset('images/kukah.jpeg') }}"
+                            data-caption="His Lordship Rev. Dr. Hassan Matthew Kukah"
+                            aria-label="View His Lordship's photograph enlarged"
+                        ></button>
+                    </div>
+
+
+
+                    <div class="leader-body">
+
+                        <h3>Biography and Educational Journey</h3>
+
+                        <div class="leader-role">
+                            Rev. Dr. Hassan Matthew Kukah
+                        </div>
+
+                        <p style="text-align: justify">
+                            Rev. Dr. Matthew Hassan Kukah, born August 31, 1952, in Kaduna State, is the Bishop of the Roman Catholic Diocese of Sokoto and a distinguished public intellectual who uniquely bridges religious and academic spheres. <br> Ordained a priest in 1976, his exceptional educational journey reflects deep scholastic commitment, starting from St. Augustine’s Major Seminary. <br> He holds a Bachelor of Divinity from Rome's Pontifical Urban University, a Master’s in Peace Studies from the University of Bradford, and a Ph.D. from SOAS, University of London. He also completed an MPA at Harvard University and served as a Senior Rhodes Fellow at the University of Oxford. His structural achievements include driving national unity through the National Peace Committee, serving on Nigeria's landmark Oputa Panel, and establishing The Kukah Centre to promote inter-religious dialogue and democratic governance.
+                        </p>
+                        <p style="text-align: justify">
+                            In recognition of his unwavering courage, ethical leadership, and peacebuilding, Rev. Dr. Hassan Matthew Kukah has received several elite accolades. He was conferred with the Prestigious National Honor of Commander of the Order of the Niger (CON) by the Nigerian Government. <br>Globally, his commitment to improving quality of life earned him the international Mundo Negro Fraternity Award in Spain. Furthermore, he has been honored with the Vanguard Personality of the Year – Lifetime Achievement Award and the Sun Courage in Leadership Award, while Pope Francis appointed him to the Vatican's Dicastery for Promoting Integral Human Development.
+                        </p>
+
+                    </div>
+
+                </article>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- HEAD TEACHER -->
+
+    <section class="section section-light" id="leadership">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">School Leadership</span>
+                <h2>Meet Our Head Teacher</h2>
+                <p>Academic leadership, professional experience and commitment to education.</p>
+            </div>
+
+            <div class="leader-grid">
+
+                <article class="leader-card">
+                    
+                    <div class="leader-photo">
+                        <img
+                            src="{{ asset('images/head-teacher.jpeg') }}"
+                            alt="Rev. Sr. Callista Nwakaego Agbokwor, O.P., Head Teacher of Fatima Nursery and Primary School, Gusau"
+                            class="leader-image"
+                            loading="lazy"
+                        >
+
+                        <button
+                            class="gallery-image-button"
+                            type="button"
+                            data-lightbox
+                            data-src="{{ asset('images/head-teacher.jpeg') }}"
+                            data-caption="Rev. Sr. Callista Nwakaego Agbokwor, O.P. — Head Teacher"
+                            aria-label="View Head Teacher photograph enlarged"
+                        ></button>
+                    </div>
+
+                    <div class="leader-body">
+
+                        <h3>Head Teacher</h3>
+
+                        <div class="leader-role">
+                            School Leadership
+                        </div>
+
+                        <p style="text-align: justify">
+                            Rev. Sr. Callista Nwakaego Agbokwor, O.P. brings a robust and diverse academic background to her leadership role, anchored by a Nigeria Certificate in Education (N.C.E.) in Business Education with an Accounting option from the Federal College of Education, Pankshin, Plateau State, secured in 2006, alongside her earlier West African Examination Council (WAEC) qualification from St. Joseph Secondary School, Jos in 2008. Expanding her foundational expertise into specialized modern domains, she earned a Diploma in Spirituality and Religious Formation from the Dominican Institute, Ibadan in 2017, and has continuously upgraded her professional competencies through rigorous certifications at Godfrey Okoye University, Enugu State. These include specialized training in research ethics, student entrepreneurial skill projects, digital marketing skill acquisition programmes, and the Godfrey Okoye Computer Competence Programme (GCCP).
+                        </p>
+                        <p style="text-align: justify">
+                            Professionally, Sr. Callista has amassed extensive administrative, financial management, and leadership experience across multiple religious and educational institutions, having served as a receptionist at Sacred Hart Pastoral Centre, Jos, and holding critical bursarial positions at Fatima Nursery and Primary School in Gusau, Fr. Matthias Health Care Unit in Naka, and as Bursar General for the Dominican Sisters of St. Catherine of Siena in Gusau. Her leadership footprint also includes her tenure as Acting Head Teacher at St. Dominic Salama Nursery and Primary School in Yelwa-Yauri, Kebbi State, complemented by professional development workshops spanning strategic planning, project proposal writing, fundraising, and peacebuilding. Building upon this solid administrative foundation, she has spearheaded special projects to digitalize the school, integrating modern technology and bringing the best of academic and digital knowledge directly to the pupils.
+                        </p>
+
+                    </div>
+
+                </article>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FACILITIES -->
+
+    <section class="section" id="facilities">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">Our Environment</span>
+                <h2>Learning Beyond the Classroom</h2>
+                <p>Explore our school environment and activities.</p>
+            </div>
+
+            <div class="facility-grid">
+
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/school_vicinity.jpeg') }}"
+                            alt="School vicinity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/school_vicinity.jpeg') }}"
+                                data-caption="Our well-ventilated and ideal learning environment"
+                                aria-label="View school environment image enlarged"></button>
+                    </div>
+                    <h3>Ideal learning environment</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/school_vicinity2.jpeg') }}"
+                            alt="School vicinity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/school_vicinity2.jpeg') }}"
+                                data-caption="Assembled for Greatness"
+                                aria-label="View school environment image enlarged"></button>
+                    </div>
+                    <h3>Assembled for Greatness</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/school_vicinity3.jpeg') }}"
+                            alt="School vicinity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/school_vicinity3.jpeg') }}"
+                                data-caption="Leaders of Tomorrow"
+                                aria-label="View school environment image enlarged"></button>
+                    </div>
+                    <h3>Leaders of Tomorrow</h3>
+                </article>               
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img2.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img2.webp') }}"
+                                data-caption="Well-equipped computer lab."
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Well-equipped Computer Lab.</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img3.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img3.webp') }}"
+                                data-caption="Pupils during computer practical"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Pupils during computer Practical</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img4.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img4.webp') }}"
+                                data-caption="Hands-on computer practicals"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Hands-on computer practicals</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img5.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img5.webp') }}"
+                                data-caption="Developing digital skills"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Developing digital skills</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img6.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img6.webp') }}"
+                                data-caption="Practical computer lessons"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Practical computer lessons</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img7.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img7.webp') }}"
+                                data-caption="Future tech genuises at work"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Future tech genuises at work</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img8.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img8.webp') }}"
+                                data-caption="Practice makes perfect... and fun!"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Practice makes perfect... and fun!</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img9.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img9.webp') }}"
+                                data-caption="Smart mind, sharp skills"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Smart minds, sharp skills</h3>
+                </article>
+                <article class="facility-card">
+                    <div class="facility-image">
+                        <img src="{{ asset('images/img10.webp') }}"
+                            alt="School pupils participating in an activity">
+                        <button class="gallery-image-button" type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/img10.webp') }}"
+                                data-caption="Trading pencils for pixels"
+                                aria-label="View school community image enlarged"></button>
+                    </div>
+                    <h3>Trading pencils for pixels</h3>
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- REAL IMAGE AND VIDEO GALLERY -->
+
+    <section class="section section-light" id="gallery">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">School Memories</span>
+                <h2>Our Gallery</h2>
+                <p>
+                    Explore our school vicinity, cultural activities,
+                    educational excursions and memorable moments.
+                </p>
+            </div>
+
+            <div class="gallery-controls">
+
+                <button class="gallery-tab active"
+                        type="button"
+                        data-gallery-filter="images"
+                        aria-pressed="true">
+                    📷 Images
+                </button>
+
+                <button class="gallery-tab"
+                        type="button"
+                        data-gallery-filter="videos"
+                        aria-pressed="false">
+                    ▶ Videos
+                </button>
+
+            </div>
+
+            <div class="gallery-grid">
+
+                <!-- SCHOOL VICINITY -->
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/school_vicinity.jpeg') }}"
+                             alt="Fatima Nursery and Primary School vicinity"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/school_vicinity.jpeg') }}"
+                                data-caption="School Vicinity"
+                                aria-label="View school vicinity photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>School Vicinity</h3>
+                        <p>Our school environment.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/school_vicinity2.jpeg') }}"
+                             alt="School vicinity photograph two"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/school_vicinity2.jpeg') }}"
+                                data-caption="School Vicinity"
+                                aria-label="View school vicinity photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Assembled for Greatness</h3>
+                        <p>Our school surroundings.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/school_vicinity3.jpeg') }}"
+                             alt="School vicinity photograph three"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/school_vicinity3.jpeg') }}"
+                                data-caption="School Vicinity"
+                                aria-label="View school vicinity photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Assembled for Greatness</h3>
+                        <p>Views of our school vicinity.</p>
+                    </div>
+
+                </article>
+
+                <!-- CULTURAL DAY IMAGES -->
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/cultural1.jpeg') }}"
+                             alt="Cultural day photograph one"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural1.jpeg') }}"
+                                data-caption="Cultural Day"
+                                aria-label="View cultural day photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Cultural Day</h3>
+                        <p>School cultural activities.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/cultural2.jpeg') }}"
+                             alt="Cultural day photograph two"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural2.jpeg') }}"
+                                data-caption="Cultural Day"
+                                aria-label="View cultural day photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Cultural Day</h3>
+                        <p>Celebrating culture and creativity.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/cultural3.jpeg') }}"
+                             alt="Cultural day photograph three"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural3.jpeg') }}"
+                                data-caption="Cultural Day"
+                                aria-label="View cultural day photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Cultural Day</h3>
+                        <p>Memorable school moments.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/cultural4.jpeg') }}"
+                             alt="Cultural day photograph four"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural4.jpeg') }}"
+                                data-caption="Cultural Day"
+                                aria-label="View cultural day photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Cultural Day</h3>
+                        <p>School celebration.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/cultural5.jpeg') }}"
+                             alt="Cultural day photograph five"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural5.jpeg') }}"
+                                data-caption="Cultural Day"
+                                aria-label="View cultural day photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Cultural Day</h3>
+                        <p>School activities and participation.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/cultural6.jpeg') }}"
+                             alt="Cultural day photograph six"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/cultural6.jpeg') }}"
+                                data-caption="Cultural Day"
+                                aria-label="View cultural day photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Cultural Day</h3>
+                        <p>School community memories.</p>
+                    </div>
+
+                </article>
+
+                <!-- SPORTS -->
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/sport1.jpeg') }}"
+                             alt="School sports event"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/sport1.jpeg') }}"
+                                data-caption="Sports Activities"
+                                aria-label="View sports photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Sports Activities</h3>
+                        <p>Physical activities and teamwork.</p>
+                    </div>
+
+                </article>
+
+                <!-- AIRPORT EXCURSION -->
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/airport_excursion2.jpeg') }}"
+                             alt="Airport excursion photograph two"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/airport_excursion2.jpeg') }}"
+                                data-caption="Airport Excursion"
+                                aria-label="View airport excursion photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Airport Excursion</h3>
+                        <p>Educational visit.</p>
+                    </div>
+
+                </article>
+
+                <article class="gallery-item" data-gallery-type="images">
+
+                    <div class="gallery-media">
+
+                        <img src="{{ asset('images/airport_excursion3.jpeg') }}"
+                             alt="Airport excursion photograph three"
+                             loading="lazy">
+
+                        <button class="gallery-image-button"
+                                type="button"
+                                data-lightbox
+                                data-src="{{ asset('images/airport_excursion3.jpeg') }}"
+                                data-caption="Airport Excursion"
+                                aria-label="View airport excursion photograph larger"></button>
+
+                    </div>
+
+                    <div class="gallery-caption">
+                        <h3>Airport Excursion</h3>
+                        <p>Learning beyond the classroom.</p>
+                    </div>
+
+                </article>
+
+                <!-- VIDEOS -->
+                <!-- VIDEO 1: CULTURAL DAY -->
+                <article class="gallery-item" data-gallery-type="videos" hidden>
+                    <div class="gallery-media">
+                        <video controls preload="metadata"
+                            playsinline
+                            aria-label="Cultural day video">
+                            <source src="{{ asset('videos/cultural7.mp4') }}" type="video/mp4">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Cultural Day</h3>
+                        <p>School cultural activities.</p>
+                    </div>
+                </article>
+
+                <!-- VIDEO 2: GRADUATION DAY -->
+                <article class="gallery-item" data-gallery-type="videos" hidden>
+                    <div class="gallery-media">
+                        <video controls preload="metadata"
+                            playsinline
+                            aria-label="Head Boy and Head Girl speech">
+                            <source src="{{ asset('videos/headboy_and_headgirl_speech.mp4') }}" type="video/mp4">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Graduation Day</h3>
+                        <p>Head Boy and Head Girl's Speech.</p>
+                    </div>
+                </article>
+
+                <!-- VIDEO 3: CULTURAL ACTIVITIES -->
+                <article class="gallery-item" data-gallery-type="videos" hidden>
+                    <div class="gallery-media">
+                        <video controls preload="metadata"
+                            playsinline
+                            aria-label="Cultural activities video">
+                            <source src="{{ asset('videos/cultural_video.mp4') }}" type="video/mp4">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Cultural Activities</h3>
+                        <p>School celebrations and performances.</p>
+                    </div>
+                </article>
+
+                <!-- VIDEO 4: AIRPORT EXCURSION -->
+                <article class="gallery-item" data-gallery-type="videos" hidden>
+                    <div class="gallery-media">
+                        <video controls preload="metadata"
+                            playsinline
+                            aria-label="Airport excursion video">
+                            <source src="{{ asset('videos/airport_excursion.mp4') }}" type="video/mp4">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Airport Excursion</h3>
+                        <p>Educational visit.</p>
+                    </div>
+                </article>
+
+                <!-- VIDEO 5: EXTRA-CURRICULAR ACTIVITIES -->
+                <article class="gallery-item" data-gallery-type="videos" hidden>
+                    <div class="gallery-media">
+                        <video controls preload="metadata"
+                            playsinline
+                            aria-label="Excursion to Gusau International Airport">
+                            <source src="{{ asset('videos/enter_plane.mp4') }}" type="video/mp4">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Extra-curricular Activities</h3>
+                        <p>Excursion to Gusau International Airport.</p>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- IMAGE POPUP -->
+
+    <div class="lightbox"
+         id="imageLightbox"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Enlarged school photograph">
+
+        <div class="lightbox-inner">
+
+            <button class="lightbox-close"
+                    id="lightboxClose"
+                    type="button"
+                    aria-label="Close enlarged image">
+                ×
+            </button>
+
+            <img class="lightbox-image"
+                 id="lightboxImage"
+                 src=""
+                 alt="Enlarged school photograph">
+
+            <div class="lightbox-caption"
+                 id="lightboxCaption"></div>
+
+        </div>
+
+    </div>
+
+    <!-- LOGIN -->
+
+    <section class="section login-section" id="portal">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="eyebrow">School Portal</span>
+                <h2>Stay Connected with Our School</h2>
+                <p>Access your school portal using the appropriate login.</p>
+            </div>
+
+            <div class="login-grid">
+
+                <article class="login-card">
+
+                    <div class="login-icon">👨‍👩‍👧</div>
+
+                    <h3>Parent / Guardian Login</h3>
+
+                    <p>
+                        Access your child's school information,
+                        published results, enrollment details
+                        and available reports.
+                    </p>
+
+                    <a href="{{ route('parent.login') }}"
+                       class="btn btn-gold">
+                        Parent Portal Login →
+                    </a>
+
+                </article>
+
+                <article class="login-card">
+
+                    <div class="login-icon">👩‍🏫</div>
+
+                    <h3>Staff Login</h3>
+
+                    <p>
+                        Access the staff portal for your
+                        assigned school responsibilities.
+                    </p>
+
+                    <a href="{{ route('staff.login') }}"
+                       class="btn btn-gold">
+                        Staff Portal Login →
+                    </a>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer" id="contact">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <!-- SCHOOL BRAND -->
+
+            <div>
+
+                <div class="footer-brand">
+
+                    <img src="{{ asset('images/school-logo.jpeg') }}"
+                         alt="Fatima Nursery and Primary School logo">
+
+                    <strong>
+                        Fatima Nursery and Primary School, Gusau
+                    </strong>
+
+                </div>
+
+                <p>
+                    Diligence & Success
+                </p>
+
+            </div>
+
+            <!-- SCHOOL NAVIGATION -->
+
+            <div>
+
+                <h3>Explore</h3>
+
+                <nav class="footer-links">
+
+                    <a href="#about">About Our School</a>
+
+                    <a href="#leadership">Head Teacher</a>
+
+                    <a href="#history">School History</a>
+
+                    <a href="#facilities">Facilities</a>
+
+                    <a href="#gallery">Gallery</a>
+
+                </nav>
+
+            </div>
+
+            <!-- SCHOOL PORTAL -->
+
+            <div>
+
+                <h3>School Portal</h3>
+
+                <nav class="footer-links">
+
+                    <a href="{{ route('parent.login') }}">
+                        Parent / Guardian Login
+                    </a>
+
+                    <a href="{{ route('staff.login') }}">
+                        Staff Login
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <!-- CONTACT US -->
+
+            <div>
+
+                <h3>Contact Us</h3>
+
+                <nav class="footer-links">
+
+                    <a href="#home">
+                        Fatima Nursery and Primary School
+                    </a>
+
+                    <a href="#contact">
+                        Gusau, Zamfara State, Nigeria
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+        <!-- COPYRIGHT AND DEVELOPER CREDIT -->
+
+        <div class="footer-bottom">
+
+            <p>
+                © <span id="currentYear"></span>
+                Fatima Nursery and Primary School, Gusau.
+                All rights reserved.
+            </p>
+
+            <p>
+                Powered by
+                <a href="https://leemawebsolutions.net"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   style="color: #f5bd45; font-weight: 800;">
+                    Leema Web Solutions
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    /* MOBILE MENU */
+
+    const body = document.body;
+    const menuButton = document.getElementById('menuButton');
+    const drawer = document.getElementById('mobileDrawer');
+    const drawerClose = document.getElementById('drawerClose');
+    const backdrop = document.getElementById('drawerBackdrop');
+
+    function openMenu() {
+        body.classList.add('menu-open');
+        menuButton.setAttribute('aria-expanded', 'true');
+        drawer.setAttribute('aria-hidden', 'false');
+        drawerClose.focus();
+    }
+
+    function closeMenu(returnFocus = true) {
+        body.classList.remove('menu-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+
+        if (returnFocus) {
+            menuButton.focus();
+        }
+    }
+
+    menuButton.addEventListener('click', openMenu);
+
+    drawerClose.addEventListener('click', closeMenu);
+
+    backdrop.addEventListener('click', closeMenu);
+
+    drawer.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+            closeMenu(false);
+        });
+    });
+
+    /* HERO SLIDESHOW: CHANGE EVERY 7 SECONDS */
+
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const heroDots = document.querySelectorAll('.hero-dot');
+
+    let currentSlide = 0;
+    let heroTimer;
+
+    function showHeroSlide(index) {
+        currentSlide = index;
+
+        heroSlides.forEach(function (slide, i) {
+            slide.classList.toggle('active', i === index);
+        });
+
+        heroDots.forEach(function (dot, i) {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    function nextHeroSlide() {
+        const next = (currentSlide + 1) % heroSlides.length;
+        showHeroSlide(next);
+    }
+
+    function startHeroSlideshow() {
+        clearInterval(heroTimer);
+
+        heroTimer = setInterval(function () {
+            nextHeroSlide();
+        }, 7000);
+    }
+
+    heroDots.forEach(function (dot) {
+
+        dot.addEventListener('click', function () {
+
+            const index = Number(dot.dataset.slide);
+
+            showHeroSlide(index);
+
+            startHeroSlideshow();
+
+        });
+
+    });
+
+    showHeroSlide(0);
+    startHeroSlideshow();
+
+
+    /* GALLERY FILTER */
+
+    const galleryButtons = document.querySelectorAll('[data-gallery-filter]');
+    const galleryItems = document.querySelectorAll('[data-gallery-type]');
+
+    function stopHiddenVideos() {
+        document.querySelectorAll('.gallery-item video').forEach(function (video) {
+            if (video.closest('.gallery-item').hidden) {
+                video.pause();
+            }
+        });
+    }
+
+    /* VIDEO PLAYBACK CONTROL */
+
+    // Get all videos in the gallery
+    const galleryVideos = document.querySelectorAll(
+        '.gallery-item[data-gallery-type="videos"] video'
+    );
+
+    // Automatically pause other videos when one starts playing
+    galleryVideos.forEach(function (currentVideo) {
+
+        currentVideo.addEventListener('play', function () {
+
+            galleryVideos.forEach(function (otherVideo) {
+
+                if (otherVideo !== currentVideo) {
+                    otherVideo.pause();
+                }
+
+            });
+
+        });
+
+    });
+
+    // Pause all videos when the viewer switches to another gallery category
+    galleryButtons.forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            if (button.dataset.galleryFilter !== 'videos') {
+
+                galleryVideos.forEach(function (video) {
+                    video.pause();
+                });
+
+            }
+
+        });
+
+    });
+
+    galleryButtons.forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            const selectedType = button.dataset.galleryFilter;
+
+            galleryButtons.forEach(function (tab) {
+
+                const active = tab === button;
+
+                tab.classList.toggle('active', active);
+
+                tab.setAttribute(
+                    'aria-pressed',
+                    active ? 'true' : 'false'
+                );
+
+            });
+
+            galleryItems.forEach(function (item) {
+
+                item.hidden = item.dataset.galleryType !== selectedType;
+
+            });
+
+            stopHiddenVideos();
+
+        });
+
+    });
+
+
+    /* IMAGE LIGHTBOX */
+
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    let previousFocus = null;
+
+    function openLightbox(src, caption) {
+
+        previousFocus = document.activeElement;
+
+        lightboxImage.src = src;
+        lightboxImage.alt = caption || 'School photograph';
+        lightboxCaption.textContent = caption || '';
+
+        lightbox.classList.add('open');
+        body.classList.add('lightbox-open');
+
+        lightboxClose.focus();
+
+    }
+
+    function closeLightbox() {
+
+        lightbox.classList.remove('open');
+        body.classList.remove('lightbox-open');
+
+        lightboxImage.src = '';
+
+        if (previousFocus && typeof previousFocus.focus === 'function') {
+            previousFocus.focus();
+        }
+
+    }
+
+    document.querySelectorAll('[data-lightbox]').forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            openLightbox(
+                button.dataset.src,
+                button.dataset.caption
+            );
+
+        });
+
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', function (event) {
+
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+
+    });
+
+    /* ESCAPE KEY */
+
+    document.addEventListener('keydown', function (event) {
+
+        if (event.key === 'Escape') {
+
+            if (lightbox.classList.contains('open')) {
+                closeLightbox();
+                return;
+            }
+
+            if (body.classList.contains('menu-open')) {
+                closeMenu();
+            }
+
+        }
+
+    });
+
+
+    /* FLOATING TOP / BOTTOM NAVIGATION */
+
+    const pageScrollButton = document.getElementById('pageScrollButton');
+
+    function updatePageScrollButton() {
+
+        const scrollPosition = window.scrollY;
+
+        const maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        // Determine whether the viewer is in the upper or lower half
+        const isTowardsTop = scrollPosition < maxScroll / 2;
+
+        if (isTowardsTop) {
+
+            pageScrollButton.textContent = '↓';
+            pageScrollButton.setAttribute('aria-label', 'Scroll to bottom');
+            pageScrollButton.setAttribute('title', 'Scroll to bottom');
+
+        } else {
+
+            pageScrollButton.textContent = '↑';
+            pageScrollButton.setAttribute('aria-label', 'Scroll to top');
+            pageScrollButton.setAttribute('title', 'Scroll to top');
+
+        }
+    }
+
+    // Update the arrow as the viewer scrolls
+    window.addEventListener('scroll', updatePageScrollButton);
+
+    // Also update when the browser window changes size
+    window.addEventListener('resize', updatePageScrollButton);
+
+    // Perform the appropriate scrolling action when clicked
+    pageScrollButton.addEventListener('click', function () {
+
+        const scrollPosition = window.scrollY;
+
+        const maxScroll =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        if (scrollPosition < maxScroll / 2) {
+
+            // Move to the bottom
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+
+        } else {
+
+            // Move to the top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+        }
+
+    });
+
+    // Set the correct initial arrow
+    updatePageScrollButton();
+
+
+    /* FOOTER YEAR */
+
+    document.getElementById('currentYear').textContent =
+        new Date().getFullYear();
+
+});
+</script>
+
+    <!-- FLOATING PAGE NAVIGATION BUTTON -->
+
+    <button
+        type="button"
+        id="pageScrollButton"
+        class="page-scroll-button"
+        aria-label="Scroll to bottom"
+        title="Scroll to bottom"
+    >
+        ↓
+    </button>
+
+
+</body>
+</html>

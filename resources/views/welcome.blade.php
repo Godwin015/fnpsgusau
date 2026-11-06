@@ -1694,89 +1694,35 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/school_vicinity.jpeg') }}"
-                                data-caption="Fatima Nursery and Primary School — School Environment"
+                                data-caption="Our well-ventilated and ideal learning environment"
                                 aria-label="View school environment image enlarged"></button>
                     </div>
-                    <h3>School Environment</h3>
+                    <h3>Ideal learning environment</h3>
                 </article>
-
                 <article class="facility-card">
                     <div class="facility-image">
-                        <img src="{{ asset('images/cultural1.jpeg') }}"
-                            alt="School cultural activity">
+                        <img src="{{ asset('images/school_vicinity2.jpeg') }}"
+                            alt="School vicinity">
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
-                                data-src="{{ asset('images/cultural1.jpeg') }}"
-                                data-caption="Cultural Activities"
-                                aria-label="View cultural activity image enlarged"></button>
+                                data-src="{{ asset('images/school_vicinity2.jpeg') }}"
+                                data-caption="Assembled for Greatness"
+                                aria-label="View school environment image enlarged"></button>
                     </div>
-                    <h3>Cultural Activities</h3>
+                    <h3>Assembled for Greatness</h3>
                 </article>
-
                 <article class="facility-card">
                     <div class="facility-image">
-                        <img src="{{ asset('images/sport1.jpeg') }}"
-                            alt="School sports activity">
+                        <img src="{{ asset('images/school_vicinity3.jpeg') }}"
+                            alt="School vicinity">
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
-                                data-src="{{ asset('images/sport1.jpeg') }}"
-                                data-caption="Sports and Physical Activities"
-                                aria-label="View sports image enlarged"></button>
+                                data-src="{{ asset('images/school_vicinity3.jpeg') }}"
+                                data-caption="Leaders of Tomorrow"
+                                aria-label="View school environment image enlarged"></button>
                     </div>
-                    <h3>Sports and Physical Activities</h3>
-                </article>
-
-                <article class="facility-card">
-                    <div class="facility-image">
-                        <img src="{{ asset('images/airport_excursion2.jpeg') }}"
-                            alt="Airport excursion">
-                        <button class="gallery-image-button" type="button"
-                                data-lightbox
-                                data-src="{{ asset('images/airport_excursion2.jpeg') }}"
-                                data-caption="Educational Excursions"
-                                aria-label="View educational excursion image enlarged"></button>
-                    </div>
-                    <h3>Educational Excursions</h3>
-                </article>
-
-                <article class="facility-card">
-                    <div class="facility-image">
-                        <img src="{{ asset('images/cultural4.jpeg') }}"
-                            alt="School event">
-                        <button class="gallery-image-button" type="button"
-                                data-lightbox
-                                data-src="{{ asset('images/cultural4.jpeg') }}"
-                                data-caption="School Celebrations"
-                                aria-label="View school celebration image enlarged"></button>
-                    </div>
-                    <h3>School Celebrations</h3>
-                </article>
-
-                <article class="facility-card">
-                    <div class="facility-image">
-                        <img src="{{ asset('images/cultural6.jpeg') }}"
-                            alt="School pupils participating in an activity">
-                        <button class="gallery-image-button" type="button"
-                                data-lightbox
-                                data-src="{{ asset('images/cultural6.jpeg') }}"
-                                data-caption="School Community"
-                                aria-label="View school community image enlarged"></button>
-                    </div>
-                    <h3>School Community</h3>
-                </article>
-
-                <article class="facility-card">
-                    <div class="facility-image">
-                        <img src="{{ asset('images/img1.webp') }}"
-                            alt="School pupils participating in an activity">
-                        <button class="gallery-image-button" type="button"
-                                data-lightbox
-                                data-src="{{ asset('images/img1.webp') }}"
-                                data-caption="School Community"
-                                aria-label="View school community image enlarged"></button>
-                    </div>
-                    <h3>School Community</h3>
-                </article>
+                    <h3>Leaders of Tomorrow</h3>
+                </article>               
                 <article class="facility-card">
                     <div class="facility-image">
                         <img src="{{ asset('images/img2.webp') }}"
@@ -1784,10 +1730,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img2.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Well-equipped computer lab."
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Well-equipped Computer Lab.</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1796,10 +1742,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img3.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Pupils during computer practical"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Pupils during computer Practical</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1808,10 +1754,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img4.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Hands-on computer practicals"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Hands-on computer practicals</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1820,10 +1766,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img5.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Developing digital skills"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Developing digital skills</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1832,10 +1778,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img6.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Practical computer lessons"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Practical computer lessons</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1844,10 +1790,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img7.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Future tech genuises at work"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Future tech genuises at work</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1856,10 +1802,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img8.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Practice makes perfect... and fun!"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Practice makes perfect... and fun!</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1868,10 +1814,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img9.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Smart mind, sharp skills"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Smart minds, sharp skills</h3>
                 </article>
                 <article class="facility-card">
                     <div class="facility-image">
@@ -1880,10 +1826,10 @@
                         <button class="gallery-image-button" type="button"
                                 data-lightbox
                                 data-src="{{ asset('images/img10.webp') }}"
-                                data-caption="School Community"
+                                data-caption="Trading pencils for pixels"
                                 aria-label="View school community image enlarged"></button>
                     </div>
-                    <h3>School Community</h3>
+                    <h3>Trading pencils for pixels</h3>
                 </article>
 
             </div>
@@ -1971,7 +1917,7 @@
                     </div>
 
                     <div class="gallery-caption">
-                        <h3>School Environment</h3>
+                        <h3>Assembled for Greatness</h3>
                         <p>Our school surroundings.</p>
                     </div>
 
@@ -1995,7 +1941,7 @@
                     </div>
 
                     <div class="gallery-caption">
-                        <h3>School Surroundings</h3>
+                        <h3>Assembled for Greatness</h3>
                         <p>Views of our school vicinity.</p>
                     </div>
 
